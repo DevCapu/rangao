@@ -36,7 +36,9 @@ class RefeicaoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $refeicao = new Refeicao();
+        $refeicao->refeicao = $request->refeicao;
+        $refeicao->data = $request->data;
     }
 
     /**
