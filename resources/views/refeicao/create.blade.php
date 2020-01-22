@@ -99,6 +99,7 @@
         </section>
     </div>
 </main>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="{{asset('js/refeicao/busca-alimentos.js')}}"></script>
 <script src="{{asset('js/refeicao/adiciona-alimentos.js')}}"></script>
 <script src="{{asset('js/refeicao/salva-refeicoes.js')}}"></script>

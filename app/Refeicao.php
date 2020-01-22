@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Refeicao extends Model
 {
-    protected $fillable = ['refeicao', 'data'];
+    protected $fillable = ['periodo', 'data'];
     public $timestamps = false;
 
     public function alimentos()

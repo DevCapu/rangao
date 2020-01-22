@@ -1,6 +1,7 @@
 <?php
 
 use App\Alimento;
+use App\AlimentoRefeicao;
 use App\Refeicao;
 use Illuminate\Http\Request;
 
@@ -26,12 +27,13 @@ Route::post('/refeicao', function (Request $request) {
     ]);
 
     foreach ($request->alimentos as $alimento) {
-        $alimentoRefeicao = new \App\AlimentoRefeicao();
+        $alimentoRefeicao = new AlimentoRefeicao();
         $alimentoRefeicao->id_refeicao = $refeicao->id;
         $alimentoRefeicao->id_alimento = $alimento['id'];
+        $alimentoRefeicao->quantidade = $alimento['quantidade'];
 
         $alimentoRefeicao->save();
     }
 
-    return \App\AlimentoRefeicao::all();
+    return AlimentoRefeicao::all();
 });
