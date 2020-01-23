@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Logica\UsuarioLogica;
+use App\Servicos\CalculadoraDeNecessidadesEnergeticas;
 use App\Usuario;
 use Illuminate\Http\Request;
 
@@ -32,39 +32,28 @@ class UsuarioController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param CalculadoraDeNecessidadesEnergeticas $calculadoraDeNecessidadesEnergeticas
+     * @return void
      */
-    public function store(Request $request)
+    public function store(Request $request, CalculadoraDeNecessidadesEnergeticas $calculadoraDeNecessidadesEnergeticas)
     {
-        $logicaUsuario = new UsuarioLogica();
 
-        $gastoEnergeticoBasal = $logicaUsuario->calculaGastoEnergeticoBasal(
+        $gastoEnergeticoBasal = $calculadoraDeNecessidadesEnergeticas->calculaGastoEnergeticoBasal(
             $request->sexo,
             $request->peso,
             $request->altura,
             $request->nascimento
         );
 
-        $gastoEnergeticoTotal = $logicaUsuario->calculaGastoEnergeticoTotal(
+        $gastoEnergeticoTotal = $calculadoraDeNecessidadesEnergeticas->calculaGastoEnergeticoTotal(
             $gastoEnergeticoBasal,
             $request->atividade
         );
 
-        $caloriasParaConseguirObjetivo = $logicaUsuario->calculaCaloriasNecessariasParaCumprirObjetivo(
+        $caloriasParaConseguirObjetivo = $calculadoraDeNecessidadesEnergeticas->calculaCaloriasNecessariasParaCumprirObjetivo(
             $gastoEnergeticoTotal,
             $request->objetivo
         );
-
-        $usuario = $logicaUsuario->preencheUsuario(
-            $request,
-            $gastoEnergeticoBasal,
-            $gastoEnergeticoTotal,
-            $caloriasParaConseguirObjetivo
-        );
-
-        $novoUsuario = Usuario::create($usuario);
-        
-        return $novoUsuario;
     }
 
     /**
