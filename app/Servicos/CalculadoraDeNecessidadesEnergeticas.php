@@ -16,7 +16,7 @@ class CalculadoraDeNecessidadesEnergeticas
      */
     public function __construct(PatientCalculator $patientCalculator)
     {
-        $this->patientCalculator = new PatientCalculator();
+        $this->patientCalculator = $patientCalculator;
     }
 
     public function calculaGastoEnergeticoBasal(string $sexo, float $peso, float $altura, string $dataDeNascimento): float
