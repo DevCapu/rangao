@@ -4,8 +4,47 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3bb4dacacf43532a01bf1d3d6dd3bbe1",
+    "content-hash": "c293fd097f31a302b2ceff83273dc4db",
     "packages": [
+        {
+            "name": "devcapu/nutricionist-calculator",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DevCapu/nutricionist-calculator.git",
+                "reference": "36d8db2627019cb8484b09c4c4487cb7ab9391da"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DevCapu/nutricionist-calculator/zipball/36d8db2627019cb8484b09c4c4487cb7ab9391da",
+                "reference": "36d8db2627019cb8484b09c4c4487cb7ab9391da",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phan/phan": "^2.2",
+                "phpunit/phpunit": "^8.2",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DevCapu\\NutriLive\\App\\": "src/",
+                    "DevCapu\\NutriLive\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Felipe Moreno Borges",
+                    "email": "cyberlegend48@gmail.com"
+                }
+            ],
+            "description": "Calculadora de Gasto energético total e basal para nutricionistas",
+            "time": "2019-12-22T18:28:54+00:00"
+        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "v0.1.1",
@@ -5044,7 +5083,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "devcapu/nutricionist-calculator": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

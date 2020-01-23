@@ -45,24 +45,25 @@
                     </label>
                     <label for="sexo" class="col s6">Sexo biológico
                         <select name="sexo" id="sexo">
-                            <option value="MASCULINO">Masculino</option>
-                            <option value="FEMININO">Feminino</option>
+                            <option value="male">Masculino</option>
+                            <option value="female">Feminino</option>
                         </select>
                     </label>
                 </div>
                 <div class="row">
                     <label for="objetivo" class="col s6">Objetivo
-                        <select name="sexo" id="objetivo">
-                            <option value="PERDER">Perder peso</option>
-                            <option value="MANTER">Definir músculo</option>
-                            <option value="GANHAR">Ganhar Massa</option>
+                        <select name="objetivo" id="objetivo">
+                            <option value="lose">Perder peso</option>
+                            <option value="define">Definir músculo</option>
+                            <option value="gain">Ganhar Massa</option>
                         </select>
                     </label>
                     <label for="atividade" class="col s6">Nível de atividade
                         <select name="atividade" id="atividade">
-                            <option value="BAIXO">Baixo</option>
-                            <option value="MÉDIO">Médio</option>
-                            <option value="ALTO">Alto</option>
+                            <option value="sedentary">Sedentário</option>
+                            <option value="littleActive">Atividade baixa</option>
+                            <option value="active">Ativo</option>
+                            <option value="veryActive">Muito ativo</option>
                         </select>
                     </label>
                 </div>
