@@ -3,11 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\Servicos\CalculadoraDeNecessidadesEnergeticas;
+use App\Servicos\UsuarioService;
 use App\Usuario;
 use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
+    /**
+     * @var CalculadoraDeNecessidadesEnergeticas
+     */
+    private CalculadoraDeNecessidadesEnergeticas $calculadoraDeNecessidadesEnergeticas;
+    /**
+     * @var UsuarioService
+     */
+    private UsuarioService $usuarioService;
+    /**
+     * @var Usuario
+     */
+    private Usuario $usuario;
+
+    /**
+     * UsuarioController constructor.
+     * @param CalculadoraDeNecessidadesEnergeticas $calculadoraDeNecessidadesEnergeticas
+     * @param UsuarioService $usuarioService
+     * @param Usuario $usuario
+     */
+    public function __construct(CalculadoraDeNecessidadesEnergeticas $calculadoraDeNecessidadesEnergeticas, UsuarioService $usuarioService, Usuario $usuario)
+    {
+
+        $this->calculadoraDeNecessidadesEnergeticas = $calculadoraDeNecessidadesEnergeticas;
+        $this->usuarioService = $usuarioService;
+        $this->usuario = $usuario;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -33,27 +61,32 @@ class UsuarioController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param CalculadoraDeNecessidadesEnergeticas $calculadoraDeNecessidadesEnergeticas
+     * @param UsuarioService $usuarioService
      * @return void
      */
-    public function store(Request $request, CalculadoraDeNecessidadesEnergeticas $calculadoraDeNecessidadesEnergeticas)
+    public function store(Request $request)
     {
 
-        $gastoEnergeticoBasal = $calculadoraDeNecessidadesEnergeticas->calculaGastoEnergeticoBasal(
+        $gastoEnergeticoBasal = $this->calculadoraDeNecessidadesEnergeticas->calculaGastoEnergeticoBasal(
             $request->sexo,
             $request->peso,
             $request->altura,
             $request->nascimento
         );
 
-        $gastoEnergeticoTotal = $calculadoraDeNecessidadesEnergeticas->calculaGastoEnergeticoTotal(
+        $gastoEnergeticoTotal = $this->calculadoraDeNecessidadesEnergeticas->calculaGastoEnergeticoTotal(
             $gastoEnergeticoBasal,
             $request->atividade
         );
 
-        $caloriasParaConseguirObjetivo = $calculadoraDeNecessidadesEnergeticas->calculaCaloriasNecessariasParaCumprirObjetivo(
+        $caloriasParaConseguirObjetivo = $this->calculadoraDeNecessidadesEnergeticas->calculaCaloriasNecessariasParaCumprirObjetivo(
             $gastoEnergeticoTotal,
             $request->objetivo
         );
+
+        $arrayComDadosPreenchidos = $this->usuarioService->preencheUsuario($request, $gastoEnergeticoBasal, $gastoEnergeticoTotal, $caloriasParaConseguirObjetivo);
+        $novoUsuario = $this->usuario->create($arrayComDadosPreenchidos);
+        return $novoUsuario;
     }
 
     /**
