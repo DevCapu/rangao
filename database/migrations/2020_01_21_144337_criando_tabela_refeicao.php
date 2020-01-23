@@ -13,7 +13,7 @@ class CriandoTabelaRefeicao extends Migration
      */
     public function up()
     {
-        Schema::create('refeicaos', function (Blueprint $table) {
+        Schema::create('refeicoes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string("data");
             $table->enum('periodo', ['CAFÉ DA MANHÃ', 'ALMOÇO', 'CAFÉ DA TARDE', 'JANTAR']);
