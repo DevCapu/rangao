@@ -9,7 +9,7 @@ class Alimento extends Model
     protected $fillable = ['nome', 'calorias', 'medida'];
     public $timestamps = false;
 
-    public function refeicaos()
+    public function refeicoes()
     {
         return $this->belongsToMany('App\Refeicao');
     }

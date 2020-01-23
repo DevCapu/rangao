@@ -19,7 +19,7 @@ class CriandoTabelaRefeicaoAlimento extends Migration
             $table->bigInteger('id_alimento')->unsigned();
             $table->integer('quantidade');
 
-            $table->foreign('id_refeicao')->references('id')->on('refeicaos');
+            $table->foreign('id_refeicao')->references('id')->on('refeicoes');
             $table->foreign('id_alimento')->references('id')->on('alimentos');
         });
     }
