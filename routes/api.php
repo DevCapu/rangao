@@ -4,6 +4,7 @@ use App\Alimento;
 use App\AlimentoRefeicao;
 use App\Refeicao;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,8 @@ Route::get('/alimento', function (Request $request) {
 Route::post('/refeicao', function (Request $request) {
     $refeicao = Refeicao::create([
         'periodo' => $request->periodo,
-        'data' => date("d/m/Y")
+        'data' => date("d/m/Y"),
+        'id_usuario' => $request->id
     ]);
 
     foreach ($request->alimentos as $alimento) {
@@ -33,7 +35,6 @@ Route::post('/refeicao', function (Request $request) {
         $alimentoRefeicao->quantidade = $alimento['quantidade'];
 
         $alimentoRefeicao->save();
+        return 'true';
     }
-
-    return AlimentoRefeicao::all();
 });
