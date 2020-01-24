@@ -2,16 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Servicos\UsuarioService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
 
-    public function perfil()
+    public function perfil(UsuarioService $usuarioService)
     {
         if (Auth::check()) {
-            return view('usuario.show');
+            $diasDaSemana = [
+                0 => 'Domingo',
+                1 => 'Segunda',
+                2 => 'Terça',
+                3 => 'Quarta',
+                4 => 'Quinta',
+                5 => 'Sexta',
+                6 => 'Sabado',
+            ];
+            $variaveisDaView = [
+                'usuario' => Auth::user(),
+                'idade' => $usuarioService->calculaIdade(Auth::user()->nascimento),
+                'diasDaSemana' => $diasDaSemana
+            ];
+            return view('usuario.show', $variaveisDaView);
         }
         return redirect()->route('usuario.login');
     }
