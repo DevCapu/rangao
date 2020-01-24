@@ -29,9 +29,9 @@
                 const alimento = {id: tdId.text(), quantidade: tdQuantidade.text()};
                 alimentos = [...alimentos, alimento];
             });
-            requestBody = {periodo: periodo, alimentos: alimentos};
+            requestBody = {"periodo": periodo, "alimentos": alimentos, "id": window.id};
             const body = JSON.stringify(requestBody);
-
+            console.log(body);
             fetch('/api/refeicao',
                 {
                     method: 'POST',

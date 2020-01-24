@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Refeicao;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class RefeicaoController extends Controller
 {
@@ -18,14 +19,12 @@ class RefeicaoController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
     public function create()
     {
-        return view('refeicao.create');
+        if(Auth::check()){
+            return view('refeicao.create', ['id'=> Auth::id()]);
+        }
+        return redirect()->route('usuario.login');
     }
 
     /**
