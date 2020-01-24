@@ -15,6 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Auth::routes();
+
 Route::resource('alimento', 'AlimentoController');
 Route::resource('refeicao', 'RefeicaoController');
 Route::resource('usuario', 'UsuarioController');
+
+Route::get('/perfil', 'AuthController@perfil')->name('perfil');
+Route::get('/login', 'AuthController@login')->name('usuario.login');
+Route::post('/login', 'AuthController@store')->name('usuario.login.do');

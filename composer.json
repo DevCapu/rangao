@@ -1,4 +1,4 @@
-{
+     {
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
@@ -17,6 +17,7 @@
     "require-dev": {
         "facade/ignition": "^1.4",
         "fzaninotto/faker": "^1.4",
+        "laravel/ui": "^1.1",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^3.0",
         "phpunit/phpunit": "^8.0"

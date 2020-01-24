@@ -2,9 +2,10 @@
 
 namespace App;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
-class Usuario extends Model
+class Usuario extends Model implements Authenticatable
 {
     protected $fillable = [
         'nome',
@@ -24,4 +25,52 @@ class Usuario extends Model
 
     protected $hidden = ['senha'];
 
+
+    /**
+     * @inheritDoc
+     */
+    public function getAuthIdentifierName()
+    {
+        return 'id';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAuthIdentifier()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAuthPassword()
+    {
+        return $this->senha;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getRememberToken()
+    {
+        return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setRememberToken($value)
+    {
+        // TODO: Implement setRememberToken() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getRememberTokenName()
+    {
+        // TODO: Implement getRememberTokenName() method.
+    }
 }
