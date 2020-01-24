@@ -13,8 +13,11 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col s12">
+        <div class="col s10">
             <h1>Perfil!</h1>
+        </div>
+        <div class="col s2">
+            <a href="/logout">Sair</a>
         </div>
     </div>
     <div class="row">

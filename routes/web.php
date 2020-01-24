@@ -24,3 +24,4 @@ Route::resource('usuario', 'UsuarioController');
 Route::get('/perfil', 'AuthController@perfil')->name('perfil');
 Route::get('/login', 'AuthController@login')->name('usuario.login');
 Route::post('/login', 'AuthController@store')->name('usuario.login.do');
+Route::get('/logout', 'AuthController@logout')->name('usuario.logout');
