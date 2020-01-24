@@ -9,21 +9,95 @@
     <link rel="favicon" href="{{asset('favicon.ico')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap-grid.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/base.css')}}">
+    <style>
+        .img {
+            display: block;
+        }
+
+        .centered {
+            margin: 0 auto;
+        }
+
+        .text-align-center {
+            text-align: center;
+        }
+
+        .img-rounded {
+            border-radius: 50%;
+        }
+
+        .img-bordered {
+            border: 2px solid #DDD;
+        }
+
+        .label {
+            font-weight: 800;
+        }
+
+        .mt-5 {
+            margin-top: 15px;
+        }
+
+    </style>
 </head>
 <body>
 <div class="container">
     <div class="row">
         <div class="col s10">
-            <h1>Perfil!</h1>
+            <h1>Perfil</h1>
         </div>
         <div class="col s2">
-            <a href="/logout">Sair</a>
+            <a href="/logout">
+                <button>Sair</button>
+            </a>
         </div>
     </div>
     <div class="row">
-        <div class="col s12 m12">
-
+        <div class="col s3 m3">
+            <img class="img centered img-rounded img-bordered" src="https://i.pravatar.cc/250"
+                 alt="{{__($usuario->nome)}}">
+            <h5 class="text-align-center">{{__($usuario->nome)}}</h5>
+            <div class="row">
+                <div class="col s5">
+                    @if($usuario->sexo === 'male')
+                        <span class="label">{{__('Masculino')}}</span>
+                    @else
+                        <span>{{__('Feminino')}}</span>
+                    @endif
+                </div>
+                <div class="col s7">
+                    {{__(join('/',array_reverse(explode('-', $usuario->nascimento))) . ': ')}} <span
+                        class="label">{{__($idade . " anos")}}</span>
+                </div>
+                <a href="">
+                    <button class="mt-5" style="width: 100%">Ver mais</button>
+                </a>
+            </div>
         </div>
+        <div class="col s6 m9">
+{{--            <div class="row">--}}
+{{--                <a href="/usuario/{{__($usuario->id)}}/edit">--}}
+{{--                    <button>Editar informações</button>--}}
+{{--                </a>--}}
+{{--            </div>--}}
+            <table>
+                <thead>
+                <tr>
+                    <th>Segunda</th>
+                    <th>Terça</th>
+                    <th>Quarta</th>
+                    <th>Quinta</th>
+                    <th>Sexta</th>
+                    <th>Sabado</th>
+                    <th>Domingo</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{$diasDaSemana[\Carbon\Carbon::now(new DateTimeZone('America/Sao_Paulo'))->dayOfWeek]}}
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </div>
 </body>
