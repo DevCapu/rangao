@@ -31,7 +31,7 @@ class AuthController extends Controller
         if (Auth::attempt($credenciais)) {
             return redirect()->route('perfil');
         }
-        return redirect()->route('usuario.login');
+        return redirect()->back()->withInput()->withErrors(['Os dados informados estão incorretos!']);
     }
 
     public function logout()

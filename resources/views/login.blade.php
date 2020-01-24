@@ -8,6 +8,7 @@
     <title>Rangão</title>
     <link rel="favicon" href="{{asset('favicon.ico')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap-grid.min.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="{{asset('css/base.css')}}">
 </head>
 <body>
@@ -22,6 +23,11 @@
         <div class="col s12 m4">
             <form action="/login" method="post">
                 @csrf
+                @if($errors->all())
+                    @foreach($errors->all() as $error)
+                        <div>{{__($error)}}</div>
+                    @endforeach
+                @endif
                 <label for="nome">Email
                     <input type="email" name="email" id="email" placeholder="felipe.b2014@gmail.com" required>
                 </label>
@@ -33,5 +39,6 @@
         </div>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
