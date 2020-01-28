@@ -75,27 +75,32 @@
             </div>
         </div>
         <div class="col s6 m9">
-{{--            <div class="row">--}}
-{{--                <a href="/usuario/{{__($usuario->id)}}/edit">--}}
-{{--                    <button>Editar informações</button>--}}
-{{--                </a>--}}
-{{--            </div>--}}
+            {{--            <div class="row">--}}
+            {{--                <a href="/usuario/{{__($usuario->id)}}/edit">--}}
+            {{--                    <button>Editar informações</button>--}}
+            {{--                </a>--}}
+            {{--            </div>--}}
             <table>
                 <thead>
                 <tr>
-                    <th>Segunda</th>
-                    <th>Terça</th>
-                    <th>Quarta</th>
-                    <th>Quinta</th>
-                    <th>Sexta</th>
-                    <th>Sabado</th>
-                    <th>Domingo</th>
+                    <th colspan="4">{{\Carbon\Carbon::now('America/Sao_Paulo')}}</th>
+                </tr>
+                <tr>
+                    <th>Café da Manhã</th>
+                    <th>Almoço</th>
+                    <th>Café da tarde</th>
+                    <th>Jantar</th>
                 </tr>
                 </thead>
                 <tbody>
-                {{$diasDaSemana[\Carbon\Carbon::now(new DateTimeZone('America/Sao_Paulo'))->dayOfWeek]}}
+                @foreach($refeicoes as $refeicao)
+                    <tr>
+                        <td>{{$refeicao['periodo']}}</td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
+            <a href="/refeicao/create">Adicionar o que eu comi hoje!</a>
         </div>
 
     </div>

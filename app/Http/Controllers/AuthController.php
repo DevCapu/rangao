@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Refeicao;
 use App\Servicos\UsuarioService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,21 +13,15 @@ class AuthController extends Controller
     public function perfil(UsuarioService $usuarioService)
     {
         if (Auth::check()) {
-            $diasDaSemana = [
-                0 => 'Domingo',
-                1 => 'Segunda',
-                2 => 'Terça',
-                3 => 'Quarta',
-                4 => 'Quinta',
-                5 => 'Sexta',
-                6 => 'Sabado',
-            ];
-            $variaveisDaView = [
-                'usuario' => Auth::user(),
-                'idade' => $usuarioService->calculaIdade(Auth::user()->nascimento),
-                'diasDaSemana' => $diasDaSemana
-            ];
-            return view('usuario.show', $variaveisDaView);
+            $refeicoes = $usuarioService->buscaRefeicoesDoDiaAtual();
+            foreach ($refeicoes as $refeicao) {
+                echo "<pre>";
+                var_dump($refeicao);
+                echo "</pre>";
+                echo "<hr>";
+            }
+
+            return view('usuario.show', ['usuario' => Auth::user(), 'idade' => '19', 'refeicoes' => $refeicoes]);
         }
         return redirect()->route('usuario.login');
     }
