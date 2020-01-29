@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Refeicao;
 use App\Servicos\UsuarioService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,15 +12,44 @@ class AuthController extends Controller
     public function perfil(UsuarioService $usuarioService)
     {
         if (Auth::check()) {
-            $refeicoes = $usuarioService->buscaRefeicoesDoDiaAtual();
+            $refeicoesObjeto = $usuarioService->buscaRefeicoesDoDiaAtual();
+
+            $refeicoes = [];
+            $cafeDaManha = [];
+            $almoco = [];
+            $cafeDaTarde = [];
+            $jantar = [];
+
+            foreach ($refeicoesObjeto as $refeicao) {
+                switch ($refeicao->periodo) {
+                    case "CAFÉ DA MANHÃ":
+                        array_push($cafeDaManha, $refeicao);
+                        break;
+                    case "ALMOÇO":
+                        array_push($almoco, $refeicao);
+                        break;
+                    case "CAFÉ DA TARDE":
+                        array_push($cafeDaTarde, $refeicao);
+                        break;
+                    case "JANTAR":
+                        array_push($jantar, $refeicao);
+                        break;
+                }
+            }
+            array_push($refeicoes, $cafeDaManha, $almoco, $cafeDaTarde, $jantar);
+
+            $tamanhoMaximo = 0;
             foreach ($refeicoes as $refeicao) {
-                echo "<pre>";
-                var_dump($refeicao);
-                echo "</pre>";
-                echo "<hr>";
+                $tamanhoMaximo = (count($refeicao) > $tamanhoMaximo) ? count($refeicao) : $tamanhoMaximo;
             }
 
-            return view('usuario.show', ['usuario' => Auth::user(), 'idade' => '19', 'refeicoes' => $refeicoes]);
+            return view('usuario.show',
+                [
+                    'usuario' => Auth::user(),
+                    'idade' => '19',
+                    'refeicoes' => $refeicoes,
+                    'quantidadeDeLinhas' => $tamanhoMaximo
+                ]);
         }
         return redirect()->route('usuario.login');
     }

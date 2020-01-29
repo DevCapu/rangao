@@ -3,8 +3,8 @@
 use App\Alimento;
 use App\AlimentoRefeicao;
 use App\Refeicao;
+use App\Servicos\UsuarioService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +21,10 @@ Route::get('/alimento', function (Request $request) {
     return Alimento::all();
 });
 
-Route::post('/refeicao', function (Request $request) {
+Route::post('/refeicao', function (Request $request, UsuarioService $usuarioService) {
     $refeicao = Refeicao::create([
         'periodo' => $request->periodo,
-        'data' => date("d/m/Y"),
+        'data' => $usuarioService->retornaDataAtualFormatada(),
         'id_usuario' => $request->id
     ]);
 
