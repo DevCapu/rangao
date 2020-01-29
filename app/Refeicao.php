@@ -13,7 +13,7 @@ class Refeicao extends Model
 
     public function alimentos()
     {
-        return $this->belongsToMany('App\Alimento');
+        return $this->hasMany(AlimentoRefeicao::class);
     }
 
     public function usuario()
