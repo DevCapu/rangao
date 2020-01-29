@@ -98,6 +98,8 @@
                         @foreach($refeicoes as $refeicao)
                             @if(array_key_exists($i, $refeicao))
                                 <td>{{$refeicao[$i]->nome}}</td>
+                            @else
+                                <td></td>
                             @endif
                         @endforeach
                     </tr>
