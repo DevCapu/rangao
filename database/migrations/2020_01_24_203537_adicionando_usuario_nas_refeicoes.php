@@ -14,9 +14,9 @@ class AdicionandoUsuarioNasRefeicoes extends Migration
     public function up()
     {
         Schema::table('refeicoes', function (Blueprint $table) {
-            $table->bigInteger('id_usuario')->unsigned();
+            $table->bigInteger('usuario_id')->unsigned();
 
-            $table->foreign('id_usuario')->references('id')->on('usuarios');
+            $table->foreign('usuario_id')->references('id')->on('usuarios');
         });
     }
 
