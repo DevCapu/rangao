@@ -35,6 +35,5 @@ Route::post('/refeicao', function (Request $request, UsuarioService $usuarioServ
         $alimentoRefeicao->quantidade = $alimento['quantidade'];
 
         $alimentoRefeicao->save();
-        return 'true';
     }
 });
