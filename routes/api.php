@@ -25,13 +25,13 @@ Route::post('/refeicao', function (Request $request, UsuarioService $usuarioServ
     $refeicao = Refeicao::create([
         'periodo' => $request->periodo,
         'data' => $usuarioService->retornaDataAtualFormatada(),
-        'id_usuario' => $request->id
+        'usuario_id' => $request->id
     ]);
 
     foreach ($request->alimentos as $alimento) {
         $alimentoRefeicao = new AlimentoRefeicao();
-        $alimentoRefeicao->id_refeicao = $refeicao->id;
-        $alimentoRefeicao->id_alimento = $alimento['id'];
+        $alimentoRefeicao->refeicao_id = $refeicao->id;
+        $alimentoRefeicao->alimento_id = $alimento['id'];
         $alimentoRefeicao->quantidade = $alimento['quantidade'];
 
         $alimentoRefeicao->save();
