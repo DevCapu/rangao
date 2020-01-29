@@ -31,6 +31,7 @@
             requestBody = {"periodo": periodo, "alimentos": alimentos, "id": id};
             const body = JSON.stringify(requestBody);
             console.log(body);
+            console.log(body);
             fetch('/api/refeicao',
                 {
                     method: 'POST',

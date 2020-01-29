@@ -93,14 +93,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($refeicoes as $refeicao)
+                @for($i = 0; $i < $quantidadeDeLinhas; $i++)
                     <tr>
-                        <td>{{$refeicao['periodo']}}</td>
+                        @foreach($refeicoes as $refeicao)
+                            @if(array_key_exists($i, $refeicao))
+                                <td>{{$refeicao[$i]->nome}}</td>
+                            @endif
+                        @endforeach
                     </tr>
-                @endforeach
+                @endfor
                 </tbody>
             </table>
-            <a href="/refeicao/create">Adicionar o que eu comi hoje!</a>
+            <a href="/refeicao/create">
+                <button>
+                    Adicionar o que eu comi hoje!
+                </button>
+            </a>
         </div>
 
     </div>

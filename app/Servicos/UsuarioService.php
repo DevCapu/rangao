@@ -66,7 +66,7 @@ class UsuarioService
         return $refeicoesDoDia;
     }
 
-    private function retornaDataAtualFormatada()
+    public function retornaDataAtualFormatada(): string
     {
         $dataDeHoje = explode(' ', Carbon::now('America/Sao_Paulo')->subDay());
         $dataDeHoje = join('/', array_reverse(explode('-', $dataDeHoje[0])));
