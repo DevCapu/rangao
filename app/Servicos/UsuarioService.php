@@ -47,30 +47,4 @@ class UsuarioService
             "foto" => ""
         ];
     }
-
-    public function buscaRefeicoesDoDiaAtual()
-    {
-        $refeicoesDoDia = DB::table('refeicoes')
-            ->join('refeicao_alimentos', 'refeicao_alimentos.id_refeicao', '=', 'refeicoes.id')
-            ->join('alimentos', 'alimentos.id', '=', 'refeicao_alimentos.id_alimento')
-            ->select(
-                'refeicao_alimentos.id',
-                'refeicoes.periodo',
-                'alimentos.nome',
-                'alimentos.calorias',
-                'refeicao_alimentos.quantidade',
-                )
-            ->where(['data' => $this->retornaDataAtualFormatada(), 'id_usuario' => Auth::id()])
-            ->get();
-
-        return $refeicoesDoDia;
-    }
-
-    public function retornaDataAtualFormatada(): string
-    {
-        $dataDeHoje = explode(' ', Carbon::now('America/Sao_Paulo')->subDay());
-        $dataDeHoje = join('/', array_reverse(explode('-', $dataDeHoje[0])));
-
-        return $dataDeHoje;
-    }
 }

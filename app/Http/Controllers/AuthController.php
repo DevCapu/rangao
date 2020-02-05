@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Servicos\RefeicaoService;
 use App\Servicos\UsuarioService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,47 +10,20 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
 
-    public function perfil(UsuarioService $usuarioService)
+    public function perfil(RefeicaoService $refeicaoService, UsuarioService $usuarioService)
     {
         if (Auth::check()) {
-            $refeicoesObjeto = $usuarioService->buscaRefeicoesDoDiaAtual();
+            $cardapio = $refeicaoService->buscaAlimentosDoDia(Auth::id());
+            $tamanhoMaximo = $this->calculaNumeroDeLinhasMaximoDoCardapio($cardapio);
 
-            $refeicoes = [];
-            $cafeDaManha = [];
-            $almoco = [];
-            $cafeDaTarde = [];
-            $jantar = [];
+            $informacoesDaView = [
+                'usuario' => Auth::user(),
+                'idade' => $usuarioService->calculaIdade(Auth::user()->nascimento),
+                'refeicoes' => $cardapio,
+                'quantidadeDeLinhas' => $tamanhoMaximo
+            ];
 
-            foreach ($refeicoesObjeto as $refeicao) {
-                switch ($refeicao->periodo) {
-                    case "CAFÉ DA MANHÃ":
-                        array_push($cafeDaManha, $refeicao);
-                        break;
-                    case "ALMOÇO":
-                        array_push($almoco, $refeicao);
-                        break;
-                    case "CAFÉ DA TARDE":
-                        array_push($cafeDaTarde, $refeicao);
-                        break;
-                    case "JANTAR":
-                        array_push($jantar, $refeicao);
-                        break;
-                }
-            }
-            array_push($refeicoes, $cafeDaManha, $almoco, $cafeDaTarde, $jantar);
-
-            $tamanhoMaximo = 0;
-            foreach ($refeicoes as $refeicao) {
-                $tamanhoMaximo = (count($refeicao) > $tamanhoMaximo) ? count($refeicao) : $tamanhoMaximo;
-            }
-
-            return view('usuario.show',
-                [
-                    'usuario' => Auth::user(),
-                    'idade' => '19',
-                    'refeicoes' => $refeicoes,
-                    'quantidadeDeLinhas' => $tamanhoMaximo
-                ]);
+            return view('usuario.show', $informacoesDaView);
         }
         return redirect()->route('usuario.login');
     }
@@ -76,5 +50,18 @@ class AuthController extends Controller
     {
         Auth::logout();
         return redirect()->route('usuario.login');
+    }
+
+    /**
+     * @param array $cardapio
+     * @return int
+     */
+    private function calculaNumeroDeLinhasMaximoDoCardapio(array $cardapio): int
+    {
+        $tamanhoMaximo = 0;
+        foreach ($cardapio as $refeicao) {
+            $tamanhoMaximo = (count($refeicao) > $tamanhoMaximo) ? count($refeicao) : $tamanhoMaximo;
+        }
+        return $tamanhoMaximo;
     }
 }
