@@ -11,6 +11,6 @@ class Alimento extends Model
 
     public function refeicoes()
     {
-        return $this->belongsTo(AlimentoRefeicao::class);
+        return $this->hasMany(AlimentoRefeicao::class);
     }
 }

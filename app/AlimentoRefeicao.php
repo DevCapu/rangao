@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App;
-
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,12 +12,12 @@ class AlimentoRefeicao extends Model
 
     public function alimento()
     {
-        return $this->hasOne(Alimento::class);
+        return $this->belongsTo(Alimento::class);
     }
 
     public function refeicao()
     {
-        return $this->hasOne(Refeicao::class);
+        return $this->belongsTo(Refeicao::class);
     }
 
 
