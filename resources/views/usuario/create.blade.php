@@ -9,6 +9,7 @@
     <link rel="favicon" href="{{asset('favicon.ico')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap-grid.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/base.css')}}">
+    <link rel="stylesheet" href="{{asset('css/alert.css')}}">
 </head>
 <body>
 <div class="container">
@@ -22,44 +23,84 @@
         <div class="col s12 m4">
             <form action="/usuario" method="post">
                 @csrf
+
+                @error('nome')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+
                 <label for="nome">Nome
-                    <input type="text" name="nome" id="nome" placeholder="Felipe" required>
+                    <input type="text" name="nome" id="nome" placeholder="Felipe">
                 </label>
+
+
+                @error('email')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
                 <label for="nome">Email
                     <input type="email" name="email" id="email" placeholder="felipe.b2014@gmail.com" required>
                 </label>
+
+
+                @error('senha')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
                 <label for="nome">Senha
                     <input type="password" name="senha" id="senha" placeholder="*******" required>
                 </label>
+
                 <div class="row">
+                    @error('peso')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                     <label for="peso" class="col s6">Peso
                         <input type="text" name="peso" id="peso" placeholder="56?" required>
                     </label>
+
+                    @error('altura')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                     <label for="altura" class="col s6">Altura
                         <input type="text" name="altura" id="altura" placeholder="1.78" required>
                     </label>
                 </div>
+
+
                 <div class="row">
+                    @error('nascimento')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                     <label for="nascimento" class="col s6">Data de nascimento
                         <input type="date" name="nascimento" id="nascimento" required>
                     </label>
+
+                    @error('sexo')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                     <label for="sexo" class="col s6">Sexo biológico
-                        <select name="sexo" id="sexo">
+                        <select name="sexo" id="sexo" required>
                             <option value="male">Masculino</option>
                             <option value="female">Feminino</option>
                         </select>
                     </label>
                 </div>
                 <div class="row">
+
+                    @error('objetivo')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                     <label for="objetivo" class="col s6">Objetivo
-                        <select name="objetivo" id="objetivo">
+                        <select name="objetivo" id="objetivo" required>
                             <option value="lose">Perder peso</option>
                             <option value="define">Definir músculo</option>
                             <option value="gain">Ganhar Massa</option>
                         </select>
                     </label>
+
+                    @error('atividade')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                     <label for="atividade" class="col s6">Nível de atividade
-                        <select name="atividade" id="atividade">
+                        <select name="atividade" id="atividade" required>
                             <option value="sedentary">Sedentário</option>
                             <option value="littleActive">Atividade baixa</option>
                             <option value="active">Ativo</option>

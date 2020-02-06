@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CadastroUsuario;
 use App\Servicos\CalculadoraDeNecessidadesEnergeticas;
 use App\Servicos\RefeicaoService;
 use App\Servicos\UsuarioService;
@@ -66,7 +67,7 @@ class UsuarioController extends Controller
      * @param Request $request
      * @return void
      */
-    public function store(Request $request)
+    public function store(CadastroUsuario $request)
     {
 
         $gastoEnergeticoBasal = $this->calculadoraDeNecessidadesEnergeticas->calculaGastoEnergeticoBasal(
@@ -88,7 +89,9 @@ class UsuarioController extends Controller
 
         $arrayComDadosPreenchidos = $this->usuarioService->preencheUsuario($request, $gastoEnergeticoBasal, $gastoEnergeticoTotal, $caloriasParaConseguirObjetivo);
         $novoUsuario = $this->usuario->create($arrayComDadosPreenchidos);
-        return $novoUsuario;
+        Auth::login($novoUsuario);
+
+        return redirect()->route('perfil');
     }
 
     /**
