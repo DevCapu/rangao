@@ -25,6 +25,10 @@ class Usuario extends Model implements Authenticatable
 
     protected $hidden = ['senha'];
 
+    public function refeicoes()
+    {
+        return $this->hasMany(Refeicao::class);
+    }
 
     /**
      * @inheritDoc

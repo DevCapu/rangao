@@ -23,17 +23,16 @@ Route::get('/alimento', function (Request $request) {
 Route::post('/refeicao', function (Request $request) {
     $refeicao = Refeicao::create([
         'periodo' => $request->periodo,
-        'data' => date("d/m/Y")
+        'data' => \App\Utilidade\DataUtilidade::retornaDataAtualFormatada(),
+        'usuario_id' => $request->id
     ]);
 
     foreach ($request->alimentos as $alimento) {
         $alimentoRefeicao = new AlimentoRefeicao();
-        $alimentoRefeicao->id_refeicao = $refeicao->id;
-        $alimentoRefeicao->id_alimento = $alimento['id'];
+        $alimentoRefeicao->refeicao_id = $refeicao->id;
+        $alimentoRefeicao->alimento_id = $alimento['id'];
         $alimentoRefeicao->quantidade = $alimento['quantidade'];
 
         $alimentoRefeicao->save();
     }
-
-    return AlimentoRefeicao::all();
 });

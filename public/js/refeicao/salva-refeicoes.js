@@ -21,7 +21,6 @@
                     periodo = 'JANTAR';
                     break;
             }
-            console.log(periodo);
             const tr = $(this).children('tbody').children('tr');
                 tr.each(function () {
                 const tdId = $(this).children('td').eq(0);
@@ -29,9 +28,10 @@
                 const alimento = {id: tdId.text(), quantidade: tdQuantidade.text()};
                 alimentos = [...alimentos, alimento];
             });
-            requestBody = {periodo: periodo, alimentos: alimentos};
+            requestBody = {"periodo": periodo, "alimentos": alimentos, "id": id};
             const body = JSON.stringify(requestBody);
-
+            console.log(body);
+            console.log(body);
             fetch('/api/refeicao',
                 {
                     method: 'POST',

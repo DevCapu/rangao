@@ -7,11 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class Refeicao extends Model
 {
     protected $table = 'refeicoes';
-    protected $fillable = ['periodo', 'data'];
+    protected $fillable = ['periodo', 'data', 'usuario_id'];
     public $timestamps = false;
 
-    public function alimentos()
+
+    public function alimentosRefeicao()
     {
-        return $this->belongsToMany('App\Alimento');
+        return $this->hasMany(AlimentoRefeicao::class);
+    }
+
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class);
     }
 }

@@ -15,12 +15,12 @@ class CriandoTabelaRefeicaoAlimento extends Migration
     {
         Schema::create('refeicao_alimentos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('id_refeicao')->unsigned();
-            $table->bigInteger('id_alimento')->unsigned();
+            $table->bigInteger('refeicao_id')->unsigned();
+            $table->bigInteger('alimento_id')->unsigned();
             $table->integer('quantidade');
 
-            $table->foreign('id_refeicao')->references('id')->on('refeicoes');
-            $table->foreign('id_alimento')->references('id')->on('alimentos');
+            $table->foreign('refeicao_id')->references('id')->on('refeicoes');
+            $table->foreign('alimento_id')->references('id')->on('alimentos');
         });
     }
 
