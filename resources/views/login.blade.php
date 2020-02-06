@@ -9,6 +9,7 @@
     <link rel="favicon" href="{{asset('favicon.ico')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap-grid.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/base.css')}}">
+    <link rel="stylesheet" href="{{asset('css/alert.css')}}">
 </head>
 <body>
 <div class="container">
@@ -22,17 +23,24 @@
         <div class="col s12 m4">
             <form action="/login" method="post">
                 @csrf
-                @if($errors->all())
-                    @foreach($errors->all() as $error)
-                        <div>{{__($error)}}</div>
-                    @endforeach
-                @endif
+                @error('incorreto')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+
+                @error('email')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
                 <label for="nome">Email
                     <input type="email" name="email" id="email" placeholder="felipe.b2014@gmail.com" required>
                 </label>
-                <label for="nome">Senha
+
+                @error('senha')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+                <label for="senha">Senha
                     <input type="password" name="senha" id="senha" placeholder="*******" required>
                 </label>
+
                 <button style="background-color: #39754f; width: 100%">Cadastrar</button>
             </form>
         </div>
