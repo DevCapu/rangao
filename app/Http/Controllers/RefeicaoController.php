@@ -21,10 +21,7 @@ class RefeicaoController extends Controller
 
     public function create()
     {
-        if(Auth::check()){
             return view('refeicao.create', ['id'=> Auth::id()]);
-        }
-        return redirect()->route('usuario.login');
     }
 
     /**
