@@ -29,7 +29,7 @@
                 @enderror
 
                 <label for="nome">Nome
-                    <input type="text" name="nome" id="nome" placeholder="Felipe">
+                    <input type="text" name="nome" id="nome" placeholder="Felipe" required>
                 </label>
 
 
