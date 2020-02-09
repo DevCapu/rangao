@@ -142,7 +142,7 @@ class UsuarioController extends Controller
     public function perfil(RefeicaoService $refeicaoService, UsuarioService $usuarioService)
     {
         $cardapio = $refeicaoService->buscaAlimentosDoDia(Auth::id());
-        $tamanhoMaximo = $this->calculaNumeroDeLinhasMaximoDoCardapio($cardapio);
+        $tamanhoMaximo = $refeicaoService->calculaNumeroDeLinhasMaximoDoCardapio($cardapio);
 
         $informacoesDaView = [
             'usuario' => Auth::user(),
@@ -153,12 +153,4 @@ class UsuarioController extends Controller
         return view('usuario.show', $informacoesDaView);
     }
 
-    private function calculaNumeroDeLinhasMaximoDoCardapio(array $cardapio): int
-    {
-        $tamanhoMaximo = 0;
-        foreach ($cardapio as $refeicao) {
-            $tamanhoMaximo = (count($refeicao) > $tamanhoMaximo) ? count($refeicao) : $tamanhoMaximo;
-        }
-        return $tamanhoMaximo;
-    }
 }

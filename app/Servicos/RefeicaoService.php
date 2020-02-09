@@ -48,4 +48,13 @@ class RefeicaoService
         }
         return [$cafeDaManha, $almoco, $cafeDaTarde, $jantar];
     }
+
+    public function calculaNumeroDeLinhasMaximoDoCardapio(array $cardapio): int
+    {
+        $tamanhoMaximo = 0;
+        foreach ($cardapio as $refeicao) {
+            $tamanhoMaximo = (count($refeicao) > $tamanhoMaximo) ? count($refeicao) : $tamanhoMaximo;
+        }
+        return $tamanhoMaximo;
+    }
 }
