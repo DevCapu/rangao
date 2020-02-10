@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CadastroUsuario;
 use App\Servicos\CalculadoraDeNecessidadesEnergeticas;
+use App\Servicos\RefeicaoService;
 use App\Servicos\UsuarioService;
 use App\Usuario;
+use App\Utilidade\DataUtilidade;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class UsuarioController extends Controller
 {
@@ -39,7 +44,7 @@ class UsuarioController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function index()
     {
@@ -49,7 +54,7 @@ class UsuarioController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -59,12 +64,10 @@ class UsuarioController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param CalculadoraDeNecessidadesEnergeticas $calculadoraDeNecessidadesEnergeticas
-     * @param UsuarioService $usuarioService
+     * @param Request $request
      * @return void
      */
-    public function store(Request $request)
+    public function store(CadastroUsuario $request)
     {
 
         $gastoEnergeticoBasal = $this->calculadoraDeNecessidadesEnergeticas->calculaGastoEnergeticoBasal(
@@ -86,14 +89,16 @@ class UsuarioController extends Controller
 
         $arrayComDadosPreenchidos = $this->usuarioService->preencheUsuario($request, $gastoEnergeticoBasal, $gastoEnergeticoTotal, $caloriasParaConseguirObjetivo);
         $novoUsuario = $this->usuario->create($arrayComDadosPreenchidos);
-        return $novoUsuario;
+        Auth::login($novoUsuario);
+
+        return redirect()->route('perfil');
     }
 
     /**
      * Display the specified resource.
      *
      * @param \App\Usuario $usuario
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(Usuario $usuario)
     {
@@ -104,7 +109,7 @@ class UsuarioController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param \App\Usuario $usuario
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit(Usuario $usuario)
     {
@@ -114,9 +119,9 @@ class UsuarioController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param \App\Usuario $usuario
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, Usuario $usuario)
     {
@@ -127,10 +132,25 @@ class UsuarioController extends Controller
      * Remove the specified resource from storage.
      *
      * @param \App\Usuario $usuario
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy(Usuario $usuario)
     {
         //
     }
+
+    public function perfil(RefeicaoService $refeicaoService, UsuarioService $usuarioService)
+    {
+        $cardapio = $refeicaoService->buscaAlimentosDoDia(Auth::id());
+        $tamanhoMaximo = $refeicaoService->calculaNumeroDeLinhasMaximoDoCardapio($cardapio);
+
+        $informacoesDaView = [
+            'usuario' => Auth::user(),
+            'idade' => $usuarioService->calculaIdade(DataUtilidade::retornaDataAtualFormatada(Auth::user()->nascimento)),
+            'refeicoes' => $cardapio,
+            'quantidadeDeLinhas' => $tamanhoMaximo
+        ];
+        return view('usuario.show', $informacoesDaView);
+    }
+
 }

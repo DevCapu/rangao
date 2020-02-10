@@ -3,6 +3,7 @@
 use App\Alimento;
 use App\AlimentoRefeicao;
 use App\Refeicao;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 /*
@@ -23,7 +24,7 @@ Route::get('/alimento', function (Request $request) {
 Route::post('/refeicao', function (Request $request) {
     $refeicao = Refeicao::create([
         'periodo' => $request->periodo,
-        'data' => \App\Utilidade\DataUtilidade::retornaDataAtualFormatada(),
+        'data' => Carbon::now('America/Sao_Paulo')->format('d/m/y'),
         'usuario_id' => $request->id
     ]);
 

@@ -4,15 +4,13 @@
 namespace App\Utilidade;
 
 
-use Carbon\Carbon;
-
 abstract class DataUtilidade
 {
-    public static function retornaDataAtualFormatada(): string
+    public static function retornaDataAtualFormatada(string $dataNaoFormatada): string
     {
-        $dataDeHoje = explode(' ', Carbon::now('America/Sao_Paulo'));
-        $dataDeHoje = join('/', array_reverse(explode('-', $dataDeHoje[0])));
+        $arrayComDataNaoFormatada = explode('/', $dataNaoFormatada);
+        $dataFormatada = join('-', array_reverse($arrayComDataNaoFormatada));
 
-        return $dataDeHoje;
+        return $dataFormatada;
     }
 }

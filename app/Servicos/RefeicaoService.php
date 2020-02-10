@@ -4,13 +4,14 @@
 namespace App\Servicos;
 
 use App\Usuario;
-use App\Utilidade\DataUtilidade;
+use Carbon\Carbon;
 
 class RefeicaoService
 {
     public function buscaAlimentosDoDia(int $idDoUsuario): array
     {
-        $refeicoesDoDia = Usuario::find($idDoUsuario)->refeicoes->where('data', DataUtilidade::retornaDataAtualFormatada());
+        $refeicoesDoDia = Usuario::find($idDoUsuario)->refeicoes->where('data', Carbon::now('America/Sao_Paulo')
+            ->format("d/m/y"));
 
         $cafeDaManha = [];
         $almoco = [];
@@ -46,5 +47,14 @@ class RefeicaoService
             }
         }
         return [$cafeDaManha, $almoco, $cafeDaTarde, $jantar];
+    }
+
+    public function calculaNumeroDeLinhasMaximoDoCardapio(array $cardapio): int
+    {
+        $tamanhoMaximo = 0;
+        foreach ($cardapio as $refeicao) {
+            $tamanhoMaximo = (count($refeicao) > $tamanhoMaximo) ? count($refeicao) : $tamanhoMaximo;
+        }
+        return $tamanhoMaximo;
     }
 }

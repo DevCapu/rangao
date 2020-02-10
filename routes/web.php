@@ -12,16 +12,16 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('usuario.login');
 });
 
 Auth::routes();
 
-Route::resource('alimento', 'AlimentoController');
-Route::resource('refeicao', 'RefeicaoController');
+Route::resource('alimento', 'AlimentoController')->middleware('auth');
+Route::resource('refeicao', 'RefeicaoController')->middleware('auth');
 Route::resource('usuario', 'UsuarioController');
 
-Route::get('/perfil', 'AuthController@perfil')->name('perfil');
+Route::get('/perfil', 'UsuarioController@perfil')->middleware('auth')->name('perfil');
 Route::get('/login', 'AuthController@login')->name('usuario.login');
-Route::post('/login', 'AuthController@store')->name('usuario.login.do');
-Route::get('/logout', 'AuthController@logout')->name('usuario.logout');
+Route::post('/login', 'AuthController@doLogin')->name('usuario.login.do');
+Route::get('/logout', 'AuthController@logout')->name('usuario.logout')->middleware('auth');

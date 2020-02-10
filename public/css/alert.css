@@ -1,0 +1,13 @@
+.alert {
+    border-radius: 5px;
+    border: 1px solid #333;
+    padding: 1rem;
+    margin: .5rem;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+    font-family: sans-serif;
+}
