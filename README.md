@@ -24,3 +24,6 @@ php artisan serve
 ```
 
 e entre na url do servidor (que por padrão será http://localhost:8000/)
+
+#TODO 
+ * Um usuário só pode editar o próprio perfil
