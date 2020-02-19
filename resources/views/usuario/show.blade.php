@@ -3,18 +3,18 @@
 @section("conteudo")
     <main>
         <div class="row">
-            <section class="col s3">
+            <section class="col s12 m3">
                 <img class="img user__photo" src="https://i.pravatar.cc/310"
                      alt="{{$usuario->nome}}"/>
                 <h5 class="center">{{$usuario->nome}}</h5>
                 <br>
-                <a class="waves-effect waves-light btn right" href="/usuario/edit"><i
+                <a class="waves-effect waves-light btn right full-width mb-4" href="/usuario/edit"><i
                         class="material-icons right">add</i>Ver mais</a>
             </section>
-            <section class="col s9">
-                <a class="waves-effect waves-light btn" href="/refeicao/create"><i
+            <section class="col s12 m9">
+                <a class="waves-effect waves-light btn full-width mb-4" href="/refeicao/create"><i
                         class="material-icons right">add</i>Gerar cardápio</a>
-                <a class="waves-effect waves-light btn" href="/refeicao/create"><i
+                <a class="waves-effect waves-light btn full-width" href="/refeicao/create"><i
                         class="material-icons right">add</i>Adicionar alimentos no cardápio de hoje</a>
                 <table class="striped centered">
                     <thead>

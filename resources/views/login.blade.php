@@ -1,5 +1,4 @@
 @extends('template')
-
 @section('conteudo')
     <div class="wallpaper">
         <main class="container">

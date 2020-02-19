@@ -33,10 +33,14 @@
             width: 100%;
         }
 
+        .mb-4 {
+            margin-bottom: 4px;
+        }
+
         .wallpaper {
             height: 100vh;
             width: 100vw;
-            background-image: url("./img/wallpapaer.jpg");
+            background-image: url({{asset('img/wallpapaer.jpg')}});
             background-size: cover;
             background-position: right bottom;
             background-repeat: no-repeat;
