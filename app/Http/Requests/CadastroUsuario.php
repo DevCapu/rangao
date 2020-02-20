@@ -30,10 +30,6 @@ class CadastroUsuario extends FormRequest
             'peso' => 'required|min:2|max:5',
             'altura' => 'required|min:3',
             'nascimento' => 'required|date_format:Y-m-d',
-            'sexo' => 'required|in:male, female',
-            'objetivo' => 'required|in:lose, gain, define',
-            'atividade' => 'required|in:sedentary, littleActive, active, veryActive'
-
         ];
     }
 
