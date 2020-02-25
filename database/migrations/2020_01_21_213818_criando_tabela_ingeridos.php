@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CriandoTabelaRefeicaoAlimento extends Migration
+class CriandoTabelaIngeridos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CriandoTabelaRefeicaoAlimento extends Migration
      */
     public function up()
     {
-        Schema::create('refeicao_alimentos', function (Blueprint $table) {
+        Schema::create('ingeridos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('refeicao_id')->unsigned();
             $table->bigInteger('alimento_id')->unsigned();

@@ -56,27 +56,27 @@ class RefeicaoService
     {
         switch ($refeicaoDoDia->periodo) {
             case "CAFÉ DA MANHÃ":
-                $alimentosRefeicao = $refeicaoDoDia->alimentosRefeicao;
-                foreach ($alimentosRefeicao as $alimentoRefeicao) {
-                    $this->cafeDaManha[] = $alimentoRefeicao->alimento;
+                $ingeridos = $refeicaoDoDia->ingeridos;
+                foreach ($ingeridos as $ingerido) {
+                    $this->cafeDaManha[] = $ingerido->alimento;
                 }
                 break;
             case "ALMOÇO":
-                $alimentosRefeicao = $refeicaoDoDia->alimentosRefeicao;
-                foreach ($alimentosRefeicao as $alimentoRefeicao) {
-                    $this->almoco[] = $alimentoRefeicao->alimento;
+                $ingeridos = $refeicaoDoDia->ingeridos;
+                foreach ($ingeridos as $ingerido) {
+                    $this->almoco[] = $ingerido->alimento;
                 }
                 break;
             case "CAFÉ DA TARDE":
-                $alimentosRefeicao = $refeicaoDoDia->alimentosRefeicao;
-                foreach ($alimentosRefeicao as $alimentoRefeicao) {
-                    $this->cafeDaTarde[] = $alimentoRefeicao->alimento;
+                $ingeridos = $refeicaoDoDia->ingeridos;
+                foreach ($ingeridos as $ingerido) {
+                    $this->cafeDaTarde[] = $ingerido->alimento;
                 }
                 break;
             case "JANTAR":
-                $alimentosRefeicao = $refeicaoDoDia->alimentosRefeicao;
-                foreach ($alimentosRefeicao as $alimentoRefeicao) {
-                    $this->jantar[] = $alimentoRefeicao->alimento;
+                $ingeridos = $refeicaoDoDia->ingeridos;
+                foreach ($ingeridos as $ingerido) {
+                    $this->jantar[] = $ingerido->alimento;
                 }
                 break;
         }
