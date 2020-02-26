@@ -11,9 +11,9 @@ class Refeicao extends Model
     public $timestamps = false;
 
 
-    public function alimentosRefeicao()
+    public function ingeridos()
     {
-        return $this->hasMany(AlimentoRefeicao::class);
+        return $this->hasMany(Ingerido::class);
     }
 
     public function usuario()

@@ -2,6 +2,7 @@
 
 use App\Alimento;
 use App\AlimentoRefeicao;
+use App\Ingerido;
 use App\Refeicao;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -29,7 +30,7 @@ Route::post('/refeicao', function (Request $request) {
     ]);
 
     foreach ($request->alimentos as $alimento) {
-        $alimentoRefeicao = new AlimentoRefeicao();
+        $alimentoRefeicao = new Ingerido();
         $alimentoRefeicao->refeicao_id = $refeicao->id;
         $alimentoRefeicao->alimento_id = $alimento['id'];
         $alimentoRefeicao->quantidade = $alimento['quantidade'];

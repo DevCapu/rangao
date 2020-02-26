@@ -8,45 +8,26 @@ use Carbon\Carbon;
 
 class RefeicaoService
 {
+
+    private array $cafeDaManha;
+    private array $almoco;
+    private array $cafeDaTarde;
+    private array $jantar;
+
+    public function __construct()
+    {
+        $this->cafeDaManha = [];
+        $this->almoco = [];
+        $this->cafeDaTarde = [];
+        $this->jantar = [];
+    }
+
     public function buscaAlimentosDoDia(int $idDoUsuario): array
     {
-        $refeicoesDoDia = Usuario::find($idDoUsuario)->refeicoes->where('data', Carbon::now('America/Sao_Paulo')
-            ->format("d/m/y"));
+        $refeicoesDoDia = $this->buscaAlimentosIngeridosNoDia($idDoUsuario);
+        $this->ordenaAlimentosPorPeriodo($refeicoesDoDia);
 
-        $cafeDaManha = [];
-        $almoco = [];
-        $cafeDaTarde = [];
-        $jantar = [];
-
-        foreach ($refeicoesDoDia as $refeicaoDoDia) {
-            switch ($refeicaoDoDia->periodo) {
-                case "CAFÉ DA MANHÃ":
-                    $alimentosRefeicao = $refeicaoDoDia->alimentosRefeicao;
-                    foreach ($alimentosRefeicao as $alimentoRefeicao) {
-                        $cafeDaManha[] = $alimentoRefeicao->alimento;
-                    }
-                    break;
-                case "ALMOÇO":
-                    $alimentosRefeicao = $refeicaoDoDia->alimentosRefeicao;
-                    foreach ($alimentosRefeicao as $alimentoRefeicao) {
-                        $almoco[] = $alimentoRefeicao->alimento;
-                    }
-                    break;
-                case "CAFÉ DA TARDE":
-                    $alimentosRefeicao = $refeicaoDoDia->alimentosRefeicao;
-                    foreach ($alimentosRefeicao as $alimentoRefeicao) {
-                        $cafeDaTarde[] = $alimentoRefeicao->alimento;
-                    }
-                    break;
-                case "JANTAR":
-                    $alimentosRefeicao = $refeicaoDoDia->alimentosRefeicao;
-                    foreach ($alimentosRefeicao as $alimentoRefeicao) {
-                        $jantar[] = $alimentoRefeicao->alimento;
-                    }
-                    break;
-            }
-        }
-        return [$cafeDaManha, $almoco, $cafeDaTarde, $jantar];
+        return [$this->cafeDaManha, $this->almoco, $this->cafeDaTarde, $this->jantar];
     }
 
     public function calculaNumeroDeLinhasMaximoDoCardapio(array $cardapio): int
@@ -56,5 +37,48 @@ class RefeicaoService
             $tamanhoMaximo = (count($refeicao) > $tamanhoMaximo) ? count($refeicao) : $tamanhoMaximo;
         }
         return $tamanhoMaximo;
+    }
+
+    private function buscaAlimentosIngeridosNoDia(int $idDoUsuario)
+    {
+        return Usuario::find($idDoUsuario)->refeicoes->where('data', Carbon::now('America/Sao_Paulo')
+            ->format("d/m/y"));
+    }
+
+    private function ordenaAlimentosPorPeriodo($refeicoesDoDia): void
+    {
+        foreach ($refeicoesDoDia as $refeicaoDoDia) {
+            $this->insereNaListaDoPeriodo($refeicaoDoDia);
+        }
+    }
+
+    private function insereNaListaDoPeriodo($refeicaoDoDia): void
+    {
+        switch ($refeicaoDoDia->periodo) {
+            case "CAFÉ DA MANHÃ":
+                $ingeridos = $refeicaoDoDia->ingeridos;
+                foreach ($ingeridos as $ingerido) {
+                    $this->cafeDaManha[] = $ingerido->alimento;
+                }
+                break;
+            case "ALMOÇO":
+                $ingeridos = $refeicaoDoDia->ingeridos;
+                foreach ($ingeridos as $ingerido) {
+                    $this->almoco[] = $ingerido->alimento;
+                }
+                break;
+            case "CAFÉ DA TARDE":
+                $ingeridos = $refeicaoDoDia->ingeridos;
+                foreach ($ingeridos as $ingerido) {
+                    $this->cafeDaTarde[] = $ingerido->alimento;
+                }
+                break;
+            case "JANTAR":
+                $ingeridos = $refeicaoDoDia->ingeridos;
+                foreach ($ingeridos as $ingerido) {
+                    $this->jantar[] = $ingerido->alimento;
+                }
+                break;
+        }
     }
 }

@@ -9,8 +9,8 @@ class Alimento extends Model
     protected $fillable = ['nome', 'calorias', 'medida'];
     public $timestamps = false;
 
-    public function refeicoes()
+    public function ingeridos()
     {
-        return $this->hasMany(AlimentoRefeicao::class);
+        return $this->hasMany(Ingerido::class);
     }
 }
