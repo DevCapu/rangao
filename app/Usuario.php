@@ -30,6 +30,11 @@ class Usuario extends Model implements Authenticatable
         return $this->hasMany(Refeicao::class);
     }
 
+    public function geladeiras()
+    {
+        return $this->hasMany(Geladeira::class);
+    }
+
     /**
      * @inheritDoc
      */

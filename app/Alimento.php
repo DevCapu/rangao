@@ -13,4 +13,9 @@ class Alimento extends Model
     {
         return $this->hasMany(Ingerido::class);
     }
+
+    public function geladeira()
+    {
+        return $this->hasMany(Geladeira::class);
+    }
 }
