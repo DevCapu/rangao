@@ -1,6 +1,6 @@
 (function () {
     const selectAlimentos = document.querySelector('#alimentos');
-    fetch('/api/alimento')
+    fetch('/api/foods')
         .then(response => {
             if (response.ok) {
                 return response.json();
@@ -10,7 +10,7 @@
         .then(json => {
             const opcoesDeAlimentos = json.map(opcao => {
                 return (
-                    `<option value="${opcao.id}">${opcao.nome}</option>`
+                    `<option value="${opcao.id}">${opcao.name}</option>`
                 );
             });
             selectAlimentos.innerHTML = opcoesDeAlimentos.join('');

@@ -22,7 +22,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <label for="senha">Senha
-                            <input type="password" name="senha" id="senha" placeholder="*******" required>
+                            <input type="password" name="password" id="senha" placeholder="*******" required>
                         </label>
 
                         <button class="btn full-width">Cadastrar</button>

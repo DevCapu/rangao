@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginUsuario;
+use App\Http\Requests\UserLogin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,15 +14,15 @@ class AuthController extends Controller
         return view('login');
     }
 
-    public function doLogin(LoginUsuario $request)
+    public function doLogin(UserLogin $request)
     {
         $credenciais = [
             'email' => $request->email,
-            'password' => $request->senha
+            'password' => $request->password
         ];
 
         if (Auth::attempt($credenciais)) {
-            return redirect()->route('perfil');
+            return redirect()->route('profile');
         }
         return redirect()->back()->withInput()->withErrors(['incorreto' => 'Os dados informados estão incorretos!']);
     }

@@ -3,6 +3,8 @@
 use App\Alimento;
 use App\AlimentoRefeicao;
 use App\Ingerido;
+use App\Models\Food;
+use App\Models\Ingested;
 use App\Refeicao;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -18,23 +20,38 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/alimento', function (Request $request) {
-    return Alimento::all();
+Route::get('/foods', function () {
+   return Food::all();
 });
 
-Route::post('/refeicao', function (Request $request) {
-    $refeicao = Refeicao::create([
-        'periodo' => $request->periodo,
-        'data' => Carbon::now('America/Sao_Paulo')->format('d/m/y'),
-        'usuario_id' => $request->id
-    ]);
+Route::post('/foods', function (Request $request) {
 
     foreach ($request->alimentos as $alimento) {
-        $alimentoRefeicao = new Ingerido();
-        $alimentoRefeicao->refeicao_id = $refeicao->id;
-        $alimentoRefeicao->alimento_id = $alimento['id'];
-        $alimentoRefeicao->quantidade = $alimento['quantidade'];
+        $food = new Food();
 
-        $alimentoRefeicao->save();
+        $food->name = $alimento['name'];
+        $food->base_qty = $alimento["base_qty"];
+        $food->base_unit = $alimento["base_unit"];
+        $food->calories = $alimento["calories"];
+        $food->category_id = $alimento["category_id"];
+
+        $food->save();
+    }
+});
+
+/*Ingested Routes*/
+Route::post('/ingested', function (Request $request) {
+    foreach ($request->foods as $food) {
+
+        $ingested = new Ingested();
+        $ingested->food_id = $food['id'];
+        $ingested->user_id = $request->user_id;
+        $ingested->quantity = $food['quantity'];
+        $ingested->period = $request->period;
+        $ingested->calories = Food::find($food['id'])->calories * $food['quantity'];
+        $ingested->date = Carbon::now('America/Sao_Paulo')
+            ->format("d/m/y");
+
+        $ingested->save();
     }
 });

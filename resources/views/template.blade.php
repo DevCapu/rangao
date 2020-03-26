@@ -51,19 +51,19 @@
 @auth
     <header>
         <ul id="configuration-dropdown" class="dropdown-content">
-            <li><a href="/perfil">Perfil</a></li>
-            <li><a href="#!">Conta</a></li>
+            <li><a href="{{route('profile')}}">Perfil</a></li>
+            <li><a href="#!">Configurações</a></li>
             <li class="divider"></li>
-            <li><a href="/logout">Sair</a></li>
+            <li><a href="{{route('usuario.logout')}}">Sair</a></li>
         </ul>
         <nav>
             <div class="nav-wrapper container">
                 <a href="/" class="brand-logo">Rangão</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="/feed">Feed</a></li>
-                    <li><a href="/geladeira">Minha geladeira</a></li>
-                    <li><a href="/refeicao/create">Suas refeições</a></li>
-                    <li><a href="/dicas">Dicas</a></li>
+                    <li><a href="{{route('feed')}}">Feed</a></li>
+                    <li><a href="{{route('refrigerators.index')}}">Minha geladeira</a></li>
+                    <li><a href="{{route('ingested.create')}}">Suas refeições</a></li>
+                    <li><a href="{{route('tips')}}">Dicas</a></li>
                     <li><a class="dropdown-trigger" data-target="configuration-dropdown"
                            href="#!">Configurações<i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>

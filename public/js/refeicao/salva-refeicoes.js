@@ -25,14 +25,13 @@
                 tr.each(function () {
                 const tdId = $(this).children('td').eq(0);
                 const tdQuantidade = $(this).children('td').eq(2);
-                const alimento = {id: tdId.text(), quantidade: tdQuantidade.text()};
+                const alimento = {id: tdId.text(), quantity: tdQuantidade.text()};
                 alimentos = [...alimentos, alimento];
             });
-            requestBody = {"periodo": periodo, "alimentos": alimentos, "id": id};
+            requestBody = {"period": periodo, "foods": alimentos, "user_id": id};
             const body = JSON.stringify(requestBody);
             console.log(body);
-            console.log(body);
-            fetch('/api/refeicao',
+            fetch('/api/ingested',
                 {
                     method: 'POST',
                     body: body,
