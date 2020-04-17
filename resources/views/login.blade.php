@@ -21,8 +21,8 @@
                         @error('senha')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
-                        <label for="senha">Senha
-                            <input type="password" name="senha" id="senha" placeholder="*******" required>
+                        <label for="senha">password
+                            <input type="password" name="password" id="password" placeholder="*******" required>
                         </label>
 
                         <button class="btn full-width">Cadastrar</button>
