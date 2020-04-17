@@ -7,6 +7,7 @@ namespace App\Services;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class IngestedFood
 {
@@ -21,6 +22,16 @@ class IngestedFood
         $this->lunch = [];
         $this->afternoonCoffee = [];
         $this->dinner = [];
+    }
+
+    public function getMeals()
+    {
+        return [
+            $this->breakfast,
+            $this->lunch,
+            $this->afternoonCoffee,
+            $this->dinner
+        ];
     }
 
     /**
@@ -72,5 +83,15 @@ class IngestedFood
                 throw new \InvalidArgumentException("We don't expect $ingested->period as an argument");
                 break;
         }
+    }
+
+    public function getRows()
+    {
+        $meals = $this->getMeals();
+        $max = -INF;
+        foreach ($meals as $meal) {
+            $max = (count($meal) > $max) ? count($meal) : $max;
+        }
+        return $max;
     }
 }
