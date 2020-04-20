@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Refrigerator extends Model
 {
     protected $fillable = ['user_id'];
+    public $timestamps = false;
 
     public function user(): BelongsTo
     {
