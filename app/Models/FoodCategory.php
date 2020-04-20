@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class FoodCategory extends Model
 {
     protected $fillable = ['category'];
+    protected $table = 'foodCategories';
+    public $timestamps = false;
 
     public function foods(): HasMany
     {
