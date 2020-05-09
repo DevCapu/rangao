@@ -17,6 +17,7 @@ class Food extends Model
         'calories',
         'category_id'
     ];
+    public $timestamps = false;
 
     public function category(): BelongsTo
     {
