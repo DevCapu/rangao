@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Adapters\EnergeticNeeds;
 use DevCapu\NutriLive\App\PatientCalculator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -23,20 +24,20 @@ class UserService
      * @param float $caloriesToCommitObjective
      * @return array
      */
-    public function fillUser(Request $request, float $basalEnergeticExpenditure, float $totalEnergeticExpenditure, float $caloriesToCommitObjective): array
+    public function fillUser(Request $request, EnergeticNeeds $energeticNeeds): array
     {
         return [
             'name' => $request->name,
             'birthday' => $request->birthday,
-            'gender' => $request->objective,
+            'gender' => $request->gender,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'height' => $request->height,
             'weight' => $request->weight,
             'activity' => $request->activity,
-            'basalEnergeticExpenditure' => $basalEnergeticExpenditure,
-            'totalEnergeticExpenditure' => $totalEnergeticExpenditure,
-            'caloriesToCommitObjective' => $caloriesToCommitObjective,
+            'basalEnergyExpenditure' => $energeticNeeds->getBasalEnergyExpenditure(),
+            'totalEnergyExpenditure' => $energeticNeeds->getTotalEnergyExpenditure(),
+            'caloriesToCommitObjective' => $energeticNeeds->getCaloriesToCommitObjective(),
             'photo' => ''
         ];
     }

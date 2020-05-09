@@ -32,7 +32,7 @@ class RefeicaoService
 
     public function calculaNumeroDeLinhasMaximoDoCardapio(array $cardapio): int
     {
-        $tamanhoMaximo = 0;
+        $tamanhoMaximo = -;
         foreach ($cardapio as $refeicao) {
             $tamanhoMaximo = (count($refeicao) > $tamanhoMaximo) ? count($refeicao) : $tamanhoMaximo;
         }
