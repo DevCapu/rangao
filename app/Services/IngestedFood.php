@@ -4,9 +4,12 @@
 namespace App\Services;
 
 
+use App\Models\Food;
+use App\Models\Ingested;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class IngestedFood
@@ -93,5 +96,24 @@ class IngestedFood
             $max = (count($meal) > $max) ? count($meal) : $max;
         }
         return $max;
+    }
+
+    public function saveIngestedFood($food, int $userId): void
+    {
+        $ingested = new Ingested();
+
+
+        $ingested->food_id = $food->id;
+        $ingested->quantity = $food->quantity;
+
+        $ingested->user_id = $userId;
+        $ingested->period = $food->period;
+
+        $ingested->calories = (Food::find($ingested->food_id))
+                ->calories * $ingested->quantity;
+
+        $ingested->date = Carbon::now('America/Sao_Paulo')->format('d/m/y');
+
+        $ingested->saveOrFail();
     }
 }
