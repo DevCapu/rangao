@@ -6,33 +6,20 @@
         tabelas.each(function (index) {
             let alimentos = [];
             let periodo;
-            console.log(index);
-            switch (index) {
-                case 0:
-                    periodo = 'CAFÉ DA MANHÃ';
-                    break;
-                case 1:
-                    periodo = 'ALMOÇO';
-                    break;
-                case 2:
-                    periodo = 'CAFÉ DA TARDE';
-                    break;
-                case 3:
-                    periodo = 'JANTAR';
-                    break;
-            }
+
+            meals = ['BREAKFAST', 'LUNCH', 'AFTERNOON_COFFEE', 'DINNER'];
+            periodo = meals[index];
             const tr = $(this).children('tbody').children('tr');
                 tr.each(function () {
                 const tdId = $(this).children('td').eq(0);
                 const tdQuantidade = $(this).children('td').eq(2);
-                const alimento = {id: tdId.text(), quantidade: tdQuantidade.text()};
+                const alimento = {id: tdId.text(), quantity: tdQuantidade.text()};
                 alimentos = [...alimentos, alimento];
             });
-            requestBody = {"periodo": periodo, "alimentos": alimentos, "id": id};
+            requestBody = {"period": periodo, "foods": alimentos, "id": id};
             const body = JSON.stringify(requestBody);
             console.log(body);
-            console.log(body);
-            fetch('/api/refeicao',
+            fetch('/api/meal',
                 {
                     method: 'POST',
                     body: body,
@@ -45,7 +32,6 @@
                     if (response.ok) {
                         return response.json();
                     }
-                    console.log(response);
                     throw new Error("Não foi possível buscar os alimentos");
                 })
                 .then(json => {
