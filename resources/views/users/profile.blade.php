@@ -5,8 +5,8 @@
         <div class="row">
             <section class="col s12 m3">
                 <img class="img user__photo" src="https://i.pravatar.cc/310"
-                     alt="{{$user->nome}}"/>
-                <h5 class="center">{{$user->nome}}</h5>
+                     alt="{{$user->name}}"/>
+                <h5 class="center">{{$user->name}}</h5>
                 <br>
                 <a class="waves-effect waves-light btn right full-width mb-4" href="/usuario/edit"><i
                         class="material-icons right">add</i>Ver mais</a>

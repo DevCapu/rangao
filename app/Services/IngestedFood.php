@@ -52,7 +52,7 @@ class IngestedFood
 
     private function searchUserIngestedFoodToday(int $userId)
     {
-        $today = Carbon::now('America/Sao_Paulo')->format('d/m/Y');
+        $today = Carbon::now('America/Sao_Paulo')->format('d/m/y');
         $ingestedFood = User::find($userId)->ingested->where('date', $today);
         $this->sortFoodByMeal($ingestedFood);
     }
