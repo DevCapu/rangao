@@ -45,7 +45,7 @@ class IngestedSeeder extends Seeder
             'food_id' => 5,
             'user_id' => 1,
             'quantity' => 4,
-            'period' => 'DINNER',
+            'period' => 'AFTERNOON_COFFEE',
             'date' => Carbon::now('America/Sao_Paulo')->format('d/m/y'),
             'calories' => Food::find(1)->calories * 4
         ]);
