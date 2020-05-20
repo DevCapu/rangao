@@ -14,6 +14,7 @@
                 );
             });
             selectAlimentos.innerHTML = opcoesDeAlimentos.join('');
+            $("#alimentos").trigger('contentChanged');
         })
         .catch(error => console.error(error));
 })();
