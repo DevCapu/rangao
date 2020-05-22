@@ -17,6 +17,7 @@ class InsertFoodInsideRefrigerator
 
     public function saveFoodInsideTheRefrigerator(SaveFoodInsideRefrigeratorRequest $request): void
     {
+
         $this->foodRefrigerator->food_id = $request->food;
         $this->foodRefrigerator->refrigerator_id = Auth::user()->refrigerator->id;
         $this->foodRefrigerator->quantity = $request->quantity;

@@ -9,7 +9,7 @@
         <table class="responsive-table  highlight">
             @forelse($foods as $food)
                 <tr>
-                    <td>{{$food->name}} (Notificação no dia: {{$food->pivot->expiration_date}})</td>
+                    <td>{{$food->name}} (Notificação no dia: {{\Carbon\Carbon::parse($food->pivot->expiration_date)->format('d/m/Y')}})</td>
                     <td>
                         <a href="{{route('refrigerator.edit', ['foodId' => $food->id])}}" class="btn">Editar</a>
                     </td>

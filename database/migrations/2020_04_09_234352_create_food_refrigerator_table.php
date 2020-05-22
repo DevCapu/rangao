@@ -17,7 +17,7 @@ class CreateFoodRefrigeratorTable extends Migration
             $table->bigInteger('food_id')->unsigned();
             $table->bigInteger('refrigerator_id')->unsigned();
             $table->integer('quantity')->unsigned();
-            $table->string('expiration_date');
+            $table->date('expiration_date');
             $table->integer('notification');
 
             $table->foreign('food_id')->references('id')->on('foods');

@@ -24,7 +24,7 @@
                     <input type="number" name="quantity" value="0" min="0" max="100">
                 </label>
                 <label for="validade">Validade
-                    <input type="text" name="expiration_date">
+                    <input type="date" name="expiration_date">
                 </label>
                 <label for="notificacao">Avisar quantos dias antes de vencer
                     <input type="number" name="notification" value="7" min="0">
@@ -49,6 +49,7 @@
             $(this).formSelect();
         });
     </script>
-
-    <script src="{{asset('js/refeicao/busca-alimentos.js')}}"></script>
+    <script src="{{asset('js/HttpClient.js')}}"></script>
+    <script src="{{asset('js/ingested-food/initializeFields.js')}}"></script>
+    <script src="{{asset('js/ingested-food/searchFoods.js')}}"></script>
 @endsection

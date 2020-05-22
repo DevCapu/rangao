@@ -16,7 +16,7 @@ class FoodRefrigeratorSeeder extends Seeder
             'food_id' => 2,
             'refrigerator_id' => 1,
             'quantity' => 3,
-            'expiration_date' => '06/08/2020',
+            'expiration_date' => '2020-08-15',
             'notification' => 3
         ]);
     }

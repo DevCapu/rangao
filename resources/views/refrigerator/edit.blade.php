@@ -27,7 +27,8 @@
                     <input type="number" name="quantity" value="{{$food->pivot->quantity}}" min="0" max="100">
                 </label>
                 <label for="validade">Validade
-                    <input type="text" name="expiration_date" value="{{$food->pivot->expiration_date}}">
+                    <input type="date" name="expiration_date"
+                           value="{{\Carbon\Carbon::parse($food->pivot->expiration_date)->format('d/m/Y')}}">
                 </label>
                 <label for="notificacao">Avisar quantos dias antes de vencer
                     <input type="number" name="notification" value="{{$food->pivot->notification}}" min="0">
