@@ -3,8 +3,8 @@
 use App\Alimento;
 use App\AlimentoRefeicao;
 use App\Ingerido;
+use App\Models\Food;
 use App\Refeicao;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 /*
@@ -18,23 +18,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/alimento', function (Request $request) {
-    return Alimento::all();
+Route::get('/foods', function (Request $request) {
+    return Food::all();
 });
 
-Route::post('/refeicao', function (Request $request) {
-    $refeicao = Refeicao::create([
-        'periodo' => $request->periodo,
-        'data' => Carbon::now('America/Sao_Paulo')->format('d/m/y'),
-        'usuario_id' => $request->id
-    ]);
+Route::post('users', 'AuthController@doLogin');
 
-    foreach ($request->alimentos as $alimento) {
-        $alimentoRefeicao = new Ingerido();
-        $alimentoRefeicao->refeicao_id = $refeicao->id;
-        $alimentoRefeicao->alimento_id = $alimento['id'];
-        $alimentoRefeicao->quantidade = $alimento['quantidade'];
-
-        $alimentoRefeicao->save();
-    }
-});
+Route::post('/meal', 'MealController@Store');
