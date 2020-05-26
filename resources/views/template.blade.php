@@ -51,21 +51,23 @@
 @auth
     <header>
         <ul id="configuration-dropdown" class="dropdown-content">
-            <li><a href="/perfil">Perfil</a></li>
-            <li><a href="#!">Conta</a></li>
+            <li><a href="{{route('users.edit', ['user' => \Illuminate\Support\Facades\Auth::id()])}}">Conta</a></li>
             <li class="divider"></li>
-            <li><a href="/logout">Sair</a></li>
+            <li><a href="{{route('users.logout')}}">Sair</a></li>
         </ul>
         <nav class="green lighten-2">
             <div class="nav-wrapper container">
                 <a href="/" class="brand-logo">Rangão</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li>
+                        <a href="{{route('profile', ['user' => \Illuminate\Support\Facades\Auth::id()])}}">Perfil</a>
+                    </li>
                     <li><a href="/feed">Feed</a></li>
                     <li><a href="{{route('refrigerator.index')}}">Minha geladeira</a></li>
-                    <li><a href="/refeicao/create">Suas refeições</a></li>
-                    <li><a href="/dicas">Dicas</a></li>
+                    <li><a href="{{route('meal.create')}}">Suas refeições</a></li>
+                    <li><a href="{{route('tips.index')}}">Dicas</a></li>
                     <li><a class="dropdown-trigger" data-target="configuration-dropdown"
-                           href="#!">Configurações<i class="material-icons right">arrow_drop_down</i></a></li>
+                           href="#">Configurações<i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>
             </div>
         </nav>

@@ -8,14 +8,20 @@
                      alt="{{$user->name}}"/>
                 <h5 class="center">{{$user->name}}</h5>
                 <br>
-                <a class="waves-effect waves-light btn right full-width mb-4" href="/usuario/edit"><i
+                <a class="waves-effect waves-light btn right full-width mb-4" href="{{route('users.edit', ['user' => \Illuminate\Support\Facades\Auth::id()])}}"><i
                         class="material-icons right">add</i>Ver mais</a>
             </section>
             <section class="col s12 m9">
-                <a class="waves-effect waves-light btn mb-4" href="cardapio/gerar"><i
-                        class="material-icons right">add</i>Gerar cardápio</a>
-                <a class="waves-effect waves-light btn mb-4" href="/refeicao/create"><i
-                        class="material-icons right">add</i>Adicionar alimentos no cardápio de hoje</a>
+                <div style="display: flex">
+                    <form style="margin-right: 1rem" action="{{route('menu.generate')}}" METHOD="POST">
+                        @csrf
+                        <button class="waves-effect waves-light btn mb-4"><i
+                                class="material-icons right">add</i>Gerar cardápio
+                        </button>
+                    </form>
+                    <a class="waves-effect waves-light btn mb-4" href="{{route('meal.create')}}"><i
+                            class="material-icons right">add</i>Refeições</a>
+                </div>
                 <table class="striped centered">
                     <thead>
                     <tr>

@@ -13,7 +13,12 @@ class RefrigeratorController
 
     public function index()
     {
-        $foods = Auth::user()->refrigerator->foods()->wherePivot('expiration_date', '>', Carbon::now('America/Sao_Paulo')->format('d/m/y'))->get();
+
+        $foods = Auth::user()->refrigerator
+            ->foods()
+            ->wherePivot('expiration_date', '>', Carbon::now('America/Sao_Paulo')->format('Y-m-d'))
+            ->get();
+
         return view('refrigerator.index', [
             'foods' => $foods,
             'userId' => Auth::id()

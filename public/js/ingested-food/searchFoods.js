@@ -1,9 +1,9 @@
 (function () {
     const httpClient = new HttpClient();
-    httpClient.get('/alimento')
+    httpClient.get('/foods')
         .then(json => {
             const foodOptions = json.map(food => (
-                `<option value="${food.id}">${food.nome}</option>`
+                `<option value="${food.id}">${food.name}</option>`
             ))
 
             const foodDropdown = $('#alimentos');

@@ -26,7 +26,7 @@ class SaveFoodInsideRefrigeratorRequest extends FormRequest
         return [
             'food' => 'required|numeric|exists:foods,id',
             'quantity' => 'required|numeric',
-            'expiration_date' => 'required|date_format:d/m/Y',
+            'expiration_date' => 'required|date_format:Y-m-d',
             'notification' => 'required|numeric',
         ];
     }
