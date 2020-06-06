@@ -40,6 +40,7 @@ Route::get('meal/create', 'MealController@index')->name('meal.create')->middlewa
 
 /*Feed*/
 Route::get('/feed', 'FeedController@index')->name('feed.index')->middleware('auth');
+Route::post('/feed', 'FeedController@store')->name('feed.store')->middleware('auth');
 
 /*Tips*/
 Route::get('/tips', 'TipController@index')->name('tips.index')->middleware('auth');
