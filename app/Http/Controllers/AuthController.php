@@ -15,7 +15,7 @@ class AuthController extends Controller
         return view('login');
     }
 
-    public function doLogin(LoginRequest $request)
+    public function doLogin(Request $request)
     {
         $credenciais = $request->only(['email', 'password']);
 
