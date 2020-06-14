@@ -49,4 +49,9 @@ class UserController
             ]
         );
     }
+
+    public function edit()
+    {
+        return view('users.edit', ['user' => Auth::user()]);
+    }
 }
