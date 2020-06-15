@@ -9,8 +9,7 @@ use App\Models\User;
 use App\Services\IngestedFood;
 use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
-use Illuminate\Routing\Redirector;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController
@@ -53,5 +52,24 @@ class UserController
     public function edit()
     {
         return view('users.edit', ['user' => Auth::user()]);
+    }
+
+    public function update(Request $request, EnergeticNeeds $energeticNeeds)
+    {
+        $energeticNeeds->calculate($request);
+        $user = Auth::user();
+        $user->name = $request->name;
+        $user->weight = $request->weight;
+        $user->height = $request->height;
+        $user->birthday = $request->birthday;
+        $user->objective = $request->objective;
+        $user->activity = $request->activity;
+        $user->basalEnergyExpenditure = $energeticNeeds->getBasalEnergyExpenditure();
+        $user->totalEnergyExpenditure = $energeticNeeds->getTotalEnergyExpenditure();
+        $user->caloriesToCommitObjective = $energeticNeeds->getCaloriesToCommitObjective();
+
+        $user->save();
+
+        return redirect(route('profile', ['user' => $user->id]));
     }
 }

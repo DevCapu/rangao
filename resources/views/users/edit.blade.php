@@ -14,7 +14,8 @@
             </div>
         </div>
 
-        <form action="{{route('users.update', $user->id)}}" method="POST">
+        <form action="{{route('users.update', $user->id)}}">
+            @method("PUT")
             @csrf
             @error('name')
             <div class="alert alert-danger">{{ $message }}</div>
@@ -68,7 +69,7 @@
                 @enderror
                 <div class="input-field col s6">
                     <input id="birthday" type="date" class="validate"
-                           name="birthday" value="{{$user->birthday}}"
+                           name="birthday" placeholder="{{$user->birthday}}"
                            required>
                     <label for="birthday">Nascimento</label>
                 </div>
@@ -83,7 +84,7 @@
                     </select>
                     <label for="gender">Sexo biológico</label>
                 </div>
-
+                <input type="hidden" name="gender" value="{{$user->gender}}">
             </div>
 
             <div class="row">

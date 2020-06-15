@@ -17,11 +17,8 @@ class UserService
     }
 
     /**
-     * TODO: Como essa funcionalidade é um pouco maior, eu acho que deve ter algum Design Pattern de criação que facilite isso pra mim, ou se não facilitar pelo menos deixe o código mais limpo
      * @param Request $request
-     * @param float $basalEnergeticExpenditure
-     * @param float $totalEnergeticExpenditure
-     * @param float $caloriesToCommitObjective
+     * @param EnergeticNeeds $energeticNeeds
      * @return array
      */
     public function fillUser(Request $request, EnergeticNeeds $energeticNeeds): array
