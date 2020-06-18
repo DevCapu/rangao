@@ -28,7 +28,7 @@ Route::get('/logout', 'AuthController@logout')->name('users.logout')->middleware
 /*Perfil*/
 Route::get('/profile/{user}', 'UserController@profile')->name('profile')->middleware('auth');
 Route::get('user/{user}/edit', 'UserController@edit')->name('users.edit')->middleware('auth');
-Route::get('user/{user}', 'UserController@update')->name('users.update')->middleware('auth');
+Route::put('user/{user}', 'UserController@update')->name('users.update')->middleware('auth');
 
 /*Alimentos da geladeira*/
 Route::get('/refrigerator', 'RefrigeratorController@index')->name('refrigerator.index')->middleware('auth');

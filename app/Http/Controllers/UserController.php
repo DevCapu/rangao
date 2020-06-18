@@ -67,6 +67,9 @@ class UserController
         $user->basalEnergyExpenditure = $energeticNeeds->getBasalEnergyExpenditure();
         $user->totalEnergyExpenditure = $energeticNeeds->getTotalEnergyExpenditure();
         $user->caloriesToCommitObjective = $energeticNeeds->getCaloriesToCommitObjective();
+        if ($request->hasFile('photo')) {
+            $user->photo = $request->photo->store('public/img/users-profile/');
+        }
 
         $user->save();
 
