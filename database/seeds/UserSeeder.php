@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
             "basalEnergyExpenditure" => 1022.60,
             "totalEnergyExpenditure" => 1533.90,
             "caloriesToCommitObjective" => 1181.10,
-            "photo" => ""
+            "photo" => "public/img/users-profile/user-placeholder.png"
         ]);
     }
 }
