@@ -61,7 +61,7 @@
 @section('conteudo')
     <div class="container">
         <section class="new-post">
-            <img class="new-post__user-photo" src="https://i.pravatar.cc/64" alt="">
+            <img class="new-post__user-photo" src="{{Illuminate\Support\Facades\Storage::url(\Illuminate\Support\Facades\Auth::user()->photo)}}" alt="">
             <form class="new-post__form" action="{{route('feed.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <label class="new-post__label">
