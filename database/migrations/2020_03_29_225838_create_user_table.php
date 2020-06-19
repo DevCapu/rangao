@@ -26,7 +26,7 @@ class CreateUserTable extends Migration
             $table->float('height');
             $table->float('weight');
             $table->string("birthday");
-            $table->string('photo')->default("");
+            $table->string('photo')->default("public/img/users-profile/user-placeholder.png");
             $table->enum('activity', ['sedentary', 'littleActive', 'active', 'veryActive']);
             $table->timestamps();
         });

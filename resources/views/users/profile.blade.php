@@ -4,11 +4,12 @@
     <main class="container">
         <div class="row">
             <section class="col s12 m3">
-                <img class="img user__photo" src="https://i.pravatar.cc/310"
+                <img class="img user__photo" src="{{Illuminate\Support\Facades\Storage::url($user->photo)}}"
                      alt="{{$user->name}}"/>
                 <h5 class="center">{{$user->name}}</h5>
                 <br>
-                <a class="waves-effect waves-light btn right full-width mb-4" href="{{route('users.edit', ['user' => \Illuminate\Support\Facades\Auth::id()])}}"><i
+                <a class="waves-effect waves-light btn right full-width mb-4"
+                   href="{{route('users.edit', ['user' => \Illuminate\Support\Facades\Auth::id()])}}"><i
                         class="material-icons right">add</i>Ver mais</a>
             </section>
             <section class="col s12 m9">
