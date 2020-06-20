@@ -62,7 +62,7 @@ class EnergeticNeeds
         return PatientCalculator::calculateTotalEnergyExpenditure($basalEnergyExpenditure, $activity);
     }
 
-    private function calculateBMI(float $weight, float $height, bool $rounded = true): float
+    public function calculateBMI(float $weight, float $height, bool $rounded = true): float
     {
         return PatientCalculator::calculateBMI($weight, $height, $rounded);
     }
