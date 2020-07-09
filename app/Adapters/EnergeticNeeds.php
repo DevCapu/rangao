@@ -47,7 +47,7 @@ class EnergeticNeeds
         $this->bmi = $this->calculateBMI($request->weight, $request->height);
     }
 
-    private function calculateBasalEnergyExpenditure(string $gender, float $weight, float $height, string $birthday): float
+    public function calculateBasalEnergyExpenditure(string $gender, float $weight, float $height, string $birthday): float
     {
         return PatientCalculator::calculateBasalEnergyExpenditure(
             $gender,
@@ -57,8 +57,14 @@ class EnergeticNeeds
         );
     }
 
-    private function calculateTotalEnergyExpenditure(float $basalEnergyExpenditure, string $activity): float
+    public function calculateTotalEnergyExpenditure(float $basalEnergyExpenditure, string $activity): float
     {
+        $avaliableActivities = ['sedentary', 'littleActive', 'active', 'veryActive'];
+
+        $elementExists = in_array($activity, $avaliableActivities, true);
+        if (!$elementExists || $basalEnergyExpenditure < 400) {
+            throw new \InvalidArgumentException("Activity doesn't exists or basalEnergyExpenditure < 400");
+        }
         return PatientCalculator::calculateTotalEnergyExpenditure($basalEnergyExpenditure, $activity);
     }
 
@@ -67,8 +73,14 @@ class EnergeticNeeds
         return PatientCalculator::calculateBMI($weight, $height, $rounded);
     }
 
-    private function calculateCaloriesToCommitObjective(float $basalEnergyExpenditure, string $objective)
+    public function calculateCaloriesToCommitObjective(float $totalEnergyExpenditure, string $objective)
     {
-        return PatientCalculator::calculateCaloriesToBeIngestedToCommitObjective($basalEnergyExpenditure, $objective);
+        $avaliableObjectives = ['lose', 'gain', 'define'];
+        $isNotAnObjective = !in_array($objective, $avaliableObjectives, true);
+
+        if($isNotAnObjective || $totalEnergyExpenditure < 400) {
+            throw new \InvalidArgumentException("$objective is not an objective or totalEnergyExpenditure < 400");
+        }
+        return PatientCalculator::calculateCaloriesToBeIngestedToCommitObjective($totalEnergyExpenditure, $objective);
     }
 }
