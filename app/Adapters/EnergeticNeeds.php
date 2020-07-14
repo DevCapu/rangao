@@ -65,7 +65,7 @@ class EnergeticNeeds
 
         $elementNotExists = !in_array($activity, $avaliableActivities, true);
         if ($elementNotExists) {
-            throw new InvalidArgumentException("Activity doesn't exists or basalEnergyExpenditure < 400");
+            throw new InvalidArgumentException("$activity doesn't exists");
         }
 
         if ($basalEnergyExpenditure < 400) {
@@ -86,7 +86,7 @@ class EnergeticNeeds
         $isNotAnObjective = !in_array($objective, $avaliableObjectives, true);
 
         if ($isNotAnObjective) {
-            throw new InvalidArgumentException("$objective is not an objective or totalEnergyExpenditure < 400");
+            throw new InvalidArgumentException("$objective is not an objective");
         }
 
         if ($totalEnergyExpenditure < 400) {

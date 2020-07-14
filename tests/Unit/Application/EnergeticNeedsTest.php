@@ -3,6 +3,7 @@
 namespace Tests\Unit\Application;
 
 use App\Adapters\EnergeticNeeds;
+use DomainException;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
@@ -79,7 +80,12 @@ class EnergeticNeedsTest extends TestCase
      */
     public function testInvalidArgumentsShouldNotCalculateTotalEnergyExpenditure(float $basalEnergyExpenditure, string $activity): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        if ($basalEnergyExpenditure < 400) {
+            $this->expectException(DomainException::class);
+        } else {
+            $this->expectException(InvalidArgumentException::class);
+        }
+
         $this->energeticNeeds->calculateTotalEnergyExpenditure($basalEnergyExpenditure, $activity);
     }
 
@@ -96,7 +102,11 @@ class EnergeticNeedsTest extends TestCase
      */
     public function testShouldNotCalculateCaloriesToCommitObjective(float $totalEnergyExpenditure, string $objective): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        if ($totalEnergyExpenditure < 400) {
+            $this->expectException(DomainException::class);
+        } else {
+            $this->expectException(InvalidArgumentException::class);
+        }
         $this->energeticNeeds->calculateCaloriesToCommitObjective($totalEnergyExpenditure, $objective);
     }
 
@@ -121,7 +131,6 @@ class EnergeticNeedsTest extends TestCase
         return [
             [-78.0, 'littleActive'],
             [1033.65, 'invalidArgument'],
-            [-8.0, 'invalidArgument']
         ];
     }
 
