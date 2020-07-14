@@ -35,7 +35,7 @@ class EnergeticNeedsTest extends TestCase
      */
     public function testShouldNotCalculateBMIWithWrongArguments(float $weight, float $height): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->energeticNeeds->calculateBMI($weight, $height);
     }
 
@@ -79,7 +79,7 @@ class EnergeticNeedsTest extends TestCase
      */
     public function testInvalidArgumentsShouldNotCalculateTotalEnergyExpenditure(float $basalEnergyExpenditure, string $activity): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->energeticNeeds->calculateTotalEnergyExpenditure($basalEnergyExpenditure, $activity);
     }
 
@@ -96,7 +96,7 @@ class EnergeticNeedsTest extends TestCase
      */
     public function testShouldNotCalculateCaloriesToCommitObjective(float $totalEnergyExpenditure, string $objective): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->energeticNeeds->calculateCaloriesToCommitObjective($totalEnergyExpenditure, $objective);
     }
 

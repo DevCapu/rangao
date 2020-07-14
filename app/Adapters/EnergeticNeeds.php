@@ -6,6 +6,7 @@ namespace App\Adapters;
 
 use DevCapu\NutriLive\App\PatientCalculator;
 use Illuminate\Http\Request;
+use InvalidArgumentException;
 
 class EnergeticNeeds
 {
@@ -63,7 +64,7 @@ class EnergeticNeeds
 
         $elementExists = in_array($activity, $avaliableActivities, true);
         if (!$elementExists || $basalEnergyExpenditure < 400) {
-            throw new \InvalidArgumentException("Activity doesn't exists or basalEnergyExpenditure < 400");
+            throw new InvalidArgumentException("Activity doesn't exists or basalEnergyExpenditure < 400");
         }
         return PatientCalculator::calculateTotalEnergyExpenditure($basalEnergyExpenditure, $activity);
     }
@@ -79,7 +80,7 @@ class EnergeticNeeds
         $isNotAnObjective = !in_array($objective, $avaliableObjectives, true);
 
         if($isNotAnObjective || $totalEnergyExpenditure < 400) {
-            throw new \InvalidArgumentException("$objective is not an objective or totalEnergyExpenditure < 400");
+            throw new InvalidArgumentException("$objective is not an objective or totalEnergyExpenditure < 400");
         }
         return PatientCalculator::calculateCaloriesToBeIngestedToCommitObjective($totalEnergyExpenditure, $objective);
     }
