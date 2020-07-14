@@ -5,6 +5,7 @@ namespace App\Adapters;
 
 
 use DevCapu\NutriLive\App\PatientCalculator;
+use DomainException;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 
@@ -62,10 +63,15 @@ class EnergeticNeeds
     {
         $avaliableActivities = ['sedentary', 'littleActive', 'active', 'veryActive'];
 
-        $elementExists = in_array($activity, $avaliableActivities, true);
-        if (!$elementExists || $basalEnergyExpenditure < 400) {
+        $elementNotExists = !in_array($activity, $avaliableActivities, true);
+        if ($elementNotExists) {
             throw new InvalidArgumentException("Activity doesn't exists or basalEnergyExpenditure < 400");
         }
+
+        if ($basalEnergyExpenditure < 400) {
+            throw new DomainException("Basal energy expenditure cannot be less than 400");
+        }
+
         return PatientCalculator::calculateTotalEnergyExpenditure($basalEnergyExpenditure, $activity);
     }
 
@@ -74,14 +80,19 @@ class EnergeticNeeds
         return PatientCalculator::calculateBMI($weight, $height, $rounded);
     }
 
-    public function calculateCaloriesToCommitObjective(float $totalEnergyExpenditure, string $objective)
+    public function calculateCaloriesToCommitObjective(float $totalEnergyExpenditure, string $objective): float
     {
         $avaliableObjectives = ['lose', 'gain', 'define'];
         $isNotAnObjective = !in_array($objective, $avaliableObjectives, true);
 
-        if($isNotAnObjective || $totalEnergyExpenditure < 400) {
+        if ($isNotAnObjective) {
             throw new InvalidArgumentException("$objective is not an objective or totalEnergyExpenditure < 400");
         }
+
+        if ($totalEnergyExpenditure < 400) {
+            throw new DomainException("Total energy expenditure cannot be less than 400");
+        }
+
         return PatientCalculator::calculateCaloriesToBeIngestedToCommitObjective($totalEnergyExpenditure, $objective);
     }
 }
