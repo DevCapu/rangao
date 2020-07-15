@@ -73,20 +73,18 @@ class EnergeticNeedsTest extends TestCase
         self::assertEqualsWithDelta(1240.38, $totalEnergyExpenditure, 0.5);
     }
 
-    /**
-     * @dataProvider calculateTotalEnergyExpenditureWithWrongArguments
-     * @param float $basalEnergyExpenditure
-     * @param string $activity
-     */
-    public function testInvalidArgumentsShouldNotCalculateTotalEnergyExpenditure(float $basalEnergyExpenditure, string $activity): void
+    public function testInvalidBasalEnergyExpenditureShouldThrowDomainException(): void
     {
-        if ($basalEnergyExpenditure < 400) {
-            $this->expectException(DomainException::class);
-        } else {
-            $this->expectException(InvalidArgumentException::class);
-        }
+        $basalEnergyExpenditure = 30;
+        $this->expectException(DomainException::class);
 
-        $this->energeticNeeds->calculateTotalEnergyExpenditure($basalEnergyExpenditure, $activity);
+        $this->energeticNeeds->calculateTotalEnergyExpenditure($basalEnergyExpenditure, 'sedentary');
+    }
+
+    public function testInvalidActivityShouldThrowInvalidArgumentException(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->energeticNeeds->calculateTotalEnergyExpenditure(800, 'invalidArgument');
     }
 
     public function testShouldCalculateCaloriesToCommitObjective(): void
@@ -95,19 +93,17 @@ class EnergeticNeedsTest extends TestCase
         self::assertEqualsWithDelta(955.0926, $caloriesToCommitObjective, 0.1);
     }
 
-    /**
-     * @dataProvider calculateCaloriesToCommitObjectiveWithWrongArguments
-     * @param float $totalEnergyExpenditure
-     * @param string $objective
-     */
-    public function testShouldNotCalculateCaloriesToCommitObjective(float $totalEnergyExpenditure, string $objective): void
+    public function testInvalidTotalEnergyExpenditureShouldThrowDomainException(): void
     {
-        if ($totalEnergyExpenditure < 400) {
-            $this->expectException(DomainException::class);
-        } else {
-            $this->expectException(InvalidArgumentException::class);
-        }
-        $this->energeticNeeds->calculateCaloriesToCommitObjective($totalEnergyExpenditure, $objective);
+        $totalEnergyExpenditure = 300;
+        $this->expectException(DomainException::class);
+        $this->energeticNeeds->calculateCaloriesToCommitObjective($totalEnergyExpenditure, 'gain');
+    }
+
+    public function testInvalidObjectiveShouldThrowInvalidArgumentException(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->energeticNeeds->calculateCaloriesToCommitObjective(800, 'invalidArgument');
     }
 
     public function calculateBMIWithWrongArguments(): array
@@ -123,22 +119,6 @@ class EnergeticNeedsTest extends TestCase
         return [
             ['wrongArgmument', 78.8, 1.78, '2000-10-15'],
             ['male', -78.7, 1.78, '2000-10-15']
-        ];
-    }
-
-    public function calculateTotalEnergyExpenditureWithWrongArguments(): array
-    {
-        return [
-            [-78.0, 'littleActive'],
-            [1033.65, 'invalidArgument'],
-        ];
-    }
-
-    public function calculateCaloriesToCommitObjectiveWithWrongArguments(): array
-    {
-        return [
-            [-1, 'lose'],
-            [1302, 'invalidArgument']
         ];
     }
 }
