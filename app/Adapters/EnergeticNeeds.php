@@ -5,7 +5,9 @@ namespace App\Adapters;
 
 
 use DevCapu\NutriLive\App\PatientCalculator;
+use DomainException;
 use Illuminate\Http\Request;
+use InvalidArgumentException;
 
 class EnergeticNeeds
 {
@@ -47,7 +49,7 @@ class EnergeticNeeds
         $this->bmi = $this->calculateBMI($request->weight, $request->height);
     }
 
-    private function calculateBasalEnergyExpenditure(string $gender, float $weight, float $height, string $birthday): float
+    public function calculateBasalEnergyExpenditure(string $gender, float $weight, float $height, string $birthday): float
     {
         return PatientCalculator::calculateBasalEnergyExpenditure(
             $gender,
@@ -57,18 +59,40 @@ class EnergeticNeeds
         );
     }
 
-    private function calculateTotalEnergyExpenditure(float $basalEnergyExpenditure, string $activity): float
+    public function calculateTotalEnergyExpenditure(float $basalEnergyExpenditure, string $activity): float
     {
+        $avaliableActivities = ['sedentary', 'littleActive', 'active', 'veryActive'];
+
+        $elementNotExists = !in_array($activity, $avaliableActivities, true);
+        if ($elementNotExists) {
+            throw new InvalidArgumentException("$activity doesn't exists");
+        }
+
+        if ($basalEnergyExpenditure < 400) {
+            throw new DomainException("Basal energy expenditure cannot be less than 400");
+        }
+
         return PatientCalculator::calculateTotalEnergyExpenditure($basalEnergyExpenditure, $activity);
     }
 
-    private function calculateBMI(float $weight, float $height, bool $rounded = true): float
+    public function calculateBMI(float $weight, float $height, bool $rounded = true): float
     {
         return PatientCalculator::calculateBMI($weight, $height, $rounded);
     }
 
-    private function calculateCaloriesToCommitObjective(float $basalEnergyExpenditure, string $objective)
+    public function calculateCaloriesToCommitObjective(float $totalEnergyExpenditure, string $objective): float
     {
-        return PatientCalculator::calculateCaloriesToBeIngestedToCommitObjective($basalEnergyExpenditure, $objective);
+        $avaliableObjectives = ['lose', 'gain', 'define'];
+        $isNotAnObjective = !in_array($objective, $avaliableObjectives, true);
+
+        if ($isNotAnObjective) {
+            throw new InvalidArgumentException("$objective is not an objective");
+        }
+
+        if ($totalEnergyExpenditure < 400) {
+            throw new DomainException("Total energy expenditure cannot be less than 400");
+        }
+
+        return PatientCalculator::calculateCaloriesToBeIngestedToCommitObjective($totalEnergyExpenditure, $objective);
     }
 }
