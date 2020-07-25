@@ -22,6 +22,8 @@ Route::get('/foods', function (Request $request) {
     return Food::all();
 });
 
-Route::post('users', 'AuthController@doLogin');
+Route::post('/users', 'AuthController@doLogin');
 
 Route::post('/meal', 'MealController@Store');
+
+Route::get('/recipes', 'RecipeController@find');

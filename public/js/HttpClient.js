@@ -12,7 +12,7 @@ class HttpClient {
                 if (response.ok) {
                     return response.json();
                 }
-                throw new Error('Não foi possível buscar o alimento')
+                throw new Error('Não foi possível fazer a requisição com o método GET');
             })
             .catch(error => console.log(error))
     }
@@ -34,7 +34,7 @@ class HttpClient {
                 if (response.ok) {
                     return response.json();
                 }
-                throw new Error('Não foi possível buscar o alimento')
+                throw new Error('Não foi possível fazer a requisição com o método POST');
             })
             .catch(error => console.log(error))
     }

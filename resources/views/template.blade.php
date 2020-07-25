@@ -9,6 +9,7 @@
     <title>Rangão</title>
     <link rel="favicon" href="{{asset('favicon.ico')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    @yield("styles")
     <style>
         .hidden {
             display: none;
