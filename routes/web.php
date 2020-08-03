@@ -38,6 +38,7 @@ Route::get('/refrigerator/{foodId}/edit', 'RefrigeratorController@edit')->name('
 
 /*Receitas*/
 Route::get('/recipes', 'RecipeController@index')->name('recipe.index')->middleware('auth');
+Route::get('/recipes/{recipe}', 'RecipeController@show')->name('recipe.show')->middleware('auth');
 
 /*Alimentos ingeridos*/
 Route::get('meal/create', 'MealController@index')->name('meal.create')->middleware('auth');

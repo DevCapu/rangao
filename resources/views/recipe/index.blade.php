@@ -15,10 +15,10 @@
             <div class="card__container js-results">
                 <h4 class="category__name">{{$category->name}}</h4>
                 @foreach($category->recipes as $recipe)
-                    <a class="recipe__card" href="#">
+                    <a class="recipe__card" href="{{route('recipe.show', ['recipe'=> $recipe->id])}}">
                         <div class="recipe__header">
                             <img class="recipe__image"
-                                 src="https://loveveg.com.br/app/uploads/2019/03/feijoada-vegana-header@2x-1300x899.jpg"
+                                 src="{{$recipe->photo}}" width="300" height="300"
                                  alt="{{$recipe->name}}">
                             <span class="recipe__title">{{$recipe->name}}</span>
                         </div>
