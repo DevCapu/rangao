@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class RecipeCategory extends Model
 {
+    protected $fillable=['name'];
     protected $table = 'recipeCategories';
 
     public function recipes(): BelongsToMany

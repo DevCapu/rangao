@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class RecipeAndCategory extends Pivot
 {
-    protected $table = 'recipeAndCategory';
+    protected $fillable = ['recipe_id', 'category_id'];
+    protected $table = 'recipesAndCategories';
+    public $timestamps = false;
 
 }
