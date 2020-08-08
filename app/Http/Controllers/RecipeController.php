@@ -7,20 +7,16 @@ use App\Models\Recipe;
 use App\Models\RecipeCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class RecipeController extends Controller
 {
     public function index()
     {
-        $recipeCategories = DB::table('recipeCategories')
+        $categories = RecipeCategory::select('recipeCategories.id', 'recipeCategories.name')
             ->join('recipesAndCategories', 'recipesAndCategories.category_id', '=', 'recipeCategories.id')
             ->join('recipes', 'recipes.id', '=', 'recipesAndCategories.recipe_id')
-            ->select(['recipeCategories.name', 'recipeCategories.id'])
             ->groupBy('recipeCategories.name', 'recipeCategories.id')
             ->get();
-
-        $categories = RecipeCategoryConverter::stdClassToModel($recipeCategories);
 
         return view('recipe.index', ['recipeCategories' => $categories]);
     }
