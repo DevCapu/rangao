@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Converters\RecipeCategoryConverter;
 use App\Models\Recipe;
 use App\Models\RecipeCategory;
 use Illuminate\Http\Request;
@@ -25,8 +24,7 @@ class RecipeController extends Controller
     {
         $categoryName = $request->category;
 
-        $recipeCategory = RecipeCategory::where('name', $categoryName)->first();
-        return $recipeCategory->recipes;
+        return RecipeCategory::where('name', $categoryName)->first()->recipes;
     }
 
     public function show(Recipe $recipe)
