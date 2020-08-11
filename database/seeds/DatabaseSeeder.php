@@ -17,7 +17,13 @@ class DatabaseSeeder extends Seeder
             FoodsSeeder::class,
             IngestedSeeder::class,
             RefrigeratorSeeder::class,
-            FoodRefrigeratorSeeder::class
+            FoodRefrigeratorSeeder::class,
+            RecipeCategoriesSeeder::class,
+            RecipesSeeder::class,
+            RecipesAndCategoriesSeeder::class,
+            IngredientsSeeder::class,
+            RecipesAndIngredientsSeeder::class,
+            StepsSeeder::class
         ]);
     }
 }

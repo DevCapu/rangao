@@ -9,6 +9,7 @@
     <title>Rangão</title>
     <link rel="favicon" href="{{asset('favicon.ico')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    @yield("styles")
     <style>
         .hidden {
             display: none;
@@ -65,6 +66,7 @@
                     <li><a href="/feed">Feed</a></li>
                     <li><a href="{{route('refrigerator.index')}}">Minha geladeira</a></li>
                     <li><a href="{{route('meal.create')}}">Suas refeições</a></li>
+                    <li><a href="{{route('recipe.index')}}">Receitas</a></li>
                     <li><a href="{{route('tips.index')}}">Dicas</a></li>
                     <li><a class="dropdown-trigger" data-target="configuration-dropdown"
                            href="#">Configurações<i class="material-icons right">arrow_drop_down</i></a></li>
